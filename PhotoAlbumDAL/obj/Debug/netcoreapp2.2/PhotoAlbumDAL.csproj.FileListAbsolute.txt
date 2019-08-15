@@ -1,0 +1,6 @@
+F:\Visual Studio Projects\FromZeroToFullstack\NET CORE\webapps\WebPhotoAlbum\PhotoAlbumDAL\bin\Debug\netcoreapp2.2\PhotoAlbumDAL.deps.json
+F:\Visual Studio Projects\FromZeroToFullstack\NET CORE\webapps\WebPhotoAlbum\PhotoAlbumDAL\bin\Debug\netcoreapp2.2\PhotoAlbumDAL.dll
+F:\Visual Studio Projects\FromZeroToFullstack\NET CORE\webapps\WebPhotoAlbum\PhotoAlbumDAL\obj\Debug\netcoreapp2.2\PhotoAlbumDAL.csprojAssemblyReference.cache
+F:\Visual Studio Projects\FromZeroToFullstack\NET CORE\webapps\WebPhotoAlbum\PhotoAlbumDAL\obj\Debug\netcoreapp2.2\PhotoAlbumDAL.csproj.CoreCompileInputs.cache
+F:\Visual Studio Projects\FromZeroToFullstack\NET CORE\webapps\WebPhotoAlbum\PhotoAlbumDAL\obj\Debug\netcoreapp2.2\PhotoAlbumDAL.AssemblyInfoInputs.cache
+F:\Visual Studio Projects\FromZeroToFullstack\NET CORE\webapps\WebPhotoAlbum\PhotoAlbumDAL\obj\Debug\netcoreapp2.2\PhotoAlbumDAL.AssemblyInfo.cs
