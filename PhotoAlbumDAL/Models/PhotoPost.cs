@@ -9,7 +9,7 @@ namespace PhotoAlbumDAL.Models
         public string Description { get; set; }
         public DateTime PostingDate { get; set; }
 
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
         public User UserNav { get; set; }
 
         public int? PhotoId { get; set; }

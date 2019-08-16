@@ -9,6 +9,11 @@ using PhotoAlbumDAL.Models;
 
 namespace PhotoAlbumDAL.Repositories
 {
+    /// <summary>
+    /// Default repository for 'EMOJI_MARK' entity.
+    /// Supports sync and async repository methods.
+    /// Type of record loading: explicit.
+    /// </summary>
     public class EmojiRepository : IEmojiRepository
     {
         private ApplicationContext _dbcontext;

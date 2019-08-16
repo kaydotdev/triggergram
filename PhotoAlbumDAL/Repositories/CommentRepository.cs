@@ -9,6 +9,11 @@ using PhotoAlbumDAL.Models;
 
 namespace PhotoAlbumDAL.Repositories
 {
+    /// <summary>
+    /// Default repository for 'POST_COMMENT' entity.
+    /// Supports sync and async repository methods.
+    /// Type of record loading: explicit.
+    /// </summary>
     public class CommentRepository : ICommentRepository
     {
         private ApplicationContext _dbcontext;
