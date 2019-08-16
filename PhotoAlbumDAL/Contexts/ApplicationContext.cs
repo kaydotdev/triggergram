@@ -35,6 +35,7 @@ namespace PhotoAlbumDAL.Contexts
 
             // Default data configs
             modelBuilder.ApplyConfiguration(new EmojiDefaultDataSet());
+            modelBuilder.ApplyConfiguration(new UserRoleDefaultDataSet());
         }
     }
 }
