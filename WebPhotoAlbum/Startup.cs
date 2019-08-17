@@ -30,7 +30,10 @@ namespace WebPhotoAlbum
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSQLServerUnitOfWorkByFileConfig("appsettings.json", "SqlServerConnection");
+
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IPostService, PostService>();
+
             services.AddCors();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(bearer => {
