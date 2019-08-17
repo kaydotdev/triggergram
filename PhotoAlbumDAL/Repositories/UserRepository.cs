@@ -48,6 +48,7 @@ namespace PhotoAlbumDAL.Repositories
                 _dbcontext.Entry(user).Reference(u => u.UserRoleNav).Load();
                 _dbcontext.Entry(user).Collection(u => u.PhotoPosts).Load();
                 _dbcontext.Entry(user).Collection(u => u.PhotoPostComments).Load();
+                _dbcontext.Entry(user).Collection(u => u.EmojiMarks).Load();
             }
 
             return users;
@@ -62,6 +63,7 @@ namespace PhotoAlbumDAL.Repositories
                 await _dbcontext.Entry(user).Reference(u => u.UserRoleNav).LoadAsync();
                 await _dbcontext.Entry(user).Collection(u => u.PhotoPosts).LoadAsync();
                 await _dbcontext.Entry(user).Collection(u => u.PhotoPostComments).LoadAsync();
+                await _dbcontext.Entry(user).Collection(u => u.EmojiMarks).LoadAsync();
             }
 
             return users;
@@ -76,6 +78,7 @@ namespace PhotoAlbumDAL.Repositories
                 _dbcontext.Entry(user).Reference(u => u.UserRoleNav).Load();
                 _dbcontext.Entry(user).Collection(u => u.PhotoPosts).Load();
                 _dbcontext.Entry(user).Collection(u => u.PhotoPostComments).Load();
+                _dbcontext.Entry(user).Collection(u => u.EmojiMarks).Load();
             }
 
             return users;
@@ -90,6 +93,7 @@ namespace PhotoAlbumDAL.Repositories
                 await _dbcontext.Entry(user).Reference(u => u.UserRoleNav).LoadAsync();
                 await _dbcontext.Entry(user).Collection(u => u.PhotoPosts).LoadAsync();
                 await _dbcontext.Entry(user).Collection(u => u.PhotoPostComments).LoadAsync();
+                await _dbcontext.Entry(user).Collection(u => u.EmojiMarks).LoadAsync();
             }
 
             return users;
@@ -104,6 +108,7 @@ namespace PhotoAlbumDAL.Repositories
                 _dbcontext.Entry(user).Reference(u => u.UserRoleNav).Load();
                 _dbcontext.Entry(user).Collection(u => u.PhotoPosts).Load();
                 _dbcontext.Entry(user).Collection(u => u.PhotoPostComments).Load();
+                _dbcontext.Entry(user).Collection(u => u.EmojiMarks).Load();
             }
 
             return user;
@@ -118,6 +123,7 @@ namespace PhotoAlbumDAL.Repositories
                 await _dbcontext.Entry(user).Reference(u => u.UserRoleNav).LoadAsync();
                 await _dbcontext.Entry(user).Collection(u => u.PhotoPosts).LoadAsync();
                 await _dbcontext.Entry(user).Collection(u => u.PhotoPostComments).LoadAsync();
+                await _dbcontext.Entry(user).Collection(u => u.EmojiMarks).LoadAsync();
             }
 
             return user;

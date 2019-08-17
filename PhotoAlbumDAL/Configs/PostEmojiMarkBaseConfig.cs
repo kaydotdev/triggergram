@@ -24,6 +24,10 @@ namespace PhotoAlbumDAL.Configs
                 .HasColumnName("emoji_name")
                 .HasColumnType("varchar(250)");
 
+            builder.Property(ppem => ppem.UserId)
+                .IsRequired()
+                .HasColumnName("user_id");
+
             builder.HasOne(ppem => ppem.EmojiMarkNav)
                 .WithMany(em => em.PostsEmojiMarks)
                 .HasForeignKey(ppem => ppem.EmojiName);
@@ -31,6 +35,11 @@ namespace PhotoAlbumDAL.Configs
             builder.HasOne(ppem => ppem.PhotoPostNav)
                 .WithMany(pp => pp.PostsEmojiMarks)
                 .HasForeignKey(ppem => ppem.PhotoPostId);
+
+            builder.HasOne(ppem => ppem.UserNav)
+                .WithMany(u => u.EmojiMarks)
+                .HasForeignKey(ppem => ppem.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

@@ -16,5 +16,6 @@ namespace PhotoAlbumDAL.Models
 
         public ICollection<PhotoPost> PhotoPosts { get; set; }
         public ICollection<PhotoPostComment> PhotoPostComments { get; set; }
+        public ICollection<PostsEmojiMark> EmojiMarks { get; set; }
     }
 }

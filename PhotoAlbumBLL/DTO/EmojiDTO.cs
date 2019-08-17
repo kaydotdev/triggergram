@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace PhotoAlbumBLL.DTO
+﻿namespace PhotoAlbumBLL.DTO
 {
-    class EmojiDTO
+    public class EmojiDTO
     {
+        public string Name { get; set; }
+        public byte[] Source { get; set; }
     }
 }

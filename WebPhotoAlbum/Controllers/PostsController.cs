@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Collections.Generic;
 using System.Security.Claims;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -87,9 +87,9 @@ namespace WebPhotoAlbum.Controllers
         ///     - photoFile: File
         ///     - postDescription: string
         /// </summary>
-        /// <param name="photoFile"></param>
-        /// <param name="postDescription"></param>
-        /// <returns></returns>
+        /// <param name="photoFile">Photo file from form</param>
+        /// <param name="postDescription">Description of post from form</param>
+        /// <returns>Status code</returns>
         [HttpPost]
         public async Task<IActionResult> AddNewPost([FromForm] IFormFile photoFile, [FromForm] string postDescription)
         {
@@ -123,16 +123,113 @@ namespace WebPhotoAlbum.Controllers
                 return BadRequest("Uploaded photo is invalid!");
         }
 
-        // PUT: api/Posts/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        /// <summary>
+        /// METHOD: PUT;
+        /// ROUTE: api/Posts/<int>/photo
+        /// HEADER: jwt-token;
+        /// FORM:
+        ///     - photoFile: File
+        /// </summary>
+        /// <param name="id">Index of user's post (NOT ACTUAL ID OF POST IN DATABASE!)</param>
+        /// <param name="photoFile">Photo file from form</param>
+        /// <returns>Status codes</returns>
+        [HttpPut("{id}/photo")]
+        public async Task<IActionResult> ChangePhoto(int id, [FromForm] IFormFile photoFile)
         {
+            string username = User.Identity.Name;
+            try
+            {
+                IEnumerable<PostDTO> posts = await PostService.GetUserPostsRange(new UserDTO { UserName = username }, id, id + 1);
+                PostDTO postToChange = posts.FirstOrDefault();
+
+                if (postToChange == null)
+                    return BadRequest("Post with this ID doesn't exist!");
+
+                if (photoFile.Length > 0)
+                {
+                    byte[] photoToUpload = new byte[photoFile.Length];
+
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        await photoFile.CopyToAsync(ms);
+                        photoToUpload = ms.ToArray();
+                    }
+
+                    PhotoDTO photoToChange = new PhotoDTO { Name = photoFile.FileName, Source = photoToUpload };
+
+                    await PostService.ChangePhotoOnPost(photoToChange, postToChange);
+                    return Ok("Photo was changed successfully!");
+                }
+                else
+                    return BadRequest("Uploaded photo is invalid!");
+            }
+            catch (ArgumentException ex)
+            { return BadRequest(ex.Message); }
+            catch (Exception ex)
+            { return StatusCode(500, "Oops, something went wrong!"); }
         }
 
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        /// <summary>
+        /// METHOD: PUT;
+        /// ROUTE: api/Posts/<int>/description
+        /// HEADER: jwt-token;
+        /// FORM:
+        ///     - description: string
+        /// </summary>
+        /// <param name="id">Index of user's post (NOT ACTUAL ID OF POST IN DATABASE!)</param>
+        /// <param name="description">New description string from form</param>
+        /// <returns></returns>
+        [HttpPut("{id}/description")]
+        public async Task<IActionResult> ChangeDescription(int id, [FromForm] string description)
         {
+            string username = User.Identity.Name;
+            try
+            {
+                IEnumerable<PostDTO> posts = await PostService.GetUserPostsRange(new UserDTO { UserName = username }, id, id + 1);
+                PostDTO postToChange = posts.FirstOrDefault();
+
+                if (postToChange == null)
+                    return BadRequest("Post with this ID doesn't exist!");
+
+                await PostService.EditDescription(new PostDTO {
+                    Id = postToChange.Id,
+                    Description = description,
+                    PostingDate = postToChange.PostingDate
+                });
+
+                return Ok("Description changed successfully!");
+            }
+            catch (ArgumentException ex)
+            { return BadRequest(ex.Message); }
+            catch (Exception ex)
+            { return StatusCode(500, "Oops, something went wrong!"); }
+        }
+
+        /// <summary>
+        /// METHOD: DELETE;
+        /// ROUTE: api/Posts/<int>
+        /// HEADER: jwt-token;
+        /// </summary>
+        /// <param name="id">Index of user's post (NOT ACTUAL ID OF POST IN DATABASE!)</param>
+        /// <returns>Status codes</returns>
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            string username = User.Identity.Name;
+            try
+            {
+                IEnumerable<PostDTO> posts = await PostService.GetUserPostsRange(new UserDTO { UserName = username }, id, id + 1);
+
+                if (posts.FirstOrDefault() == null)
+                    return BadRequest("Post with this ID doesn't exist");
+
+                await PostService.DeletePost(posts.FirstOrDefault());
+                return Ok();
+            }
+            catch (ArgumentException ex)
+            { return BadRequest(ex.Message); }
+            catch (Exception ex)
+            { return StatusCode(500, "Oops, something went wrong!"); }
         }
     }
 }

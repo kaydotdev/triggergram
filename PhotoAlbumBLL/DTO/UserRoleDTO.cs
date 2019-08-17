@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace PhotoAlbumBLL.DTO
+﻿namespace PhotoAlbumBLL.DTO
 {
-    class UserRoleDTO
+    public class UserRoleDTO
     {
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }
