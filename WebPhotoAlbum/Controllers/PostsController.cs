@@ -19,17 +19,24 @@ namespace WebPhotoAlbum.Controllers
     [ApiController]
     public class PostsController : ControllerBase
     {
+        public ITagService TagService { get; }
+        public IPhotoService PhotoService { get; }
         public IPostService PostService { get; }
         public IConfiguration Configuration { get; }
 
-        public PostsController(IPostService service, IConfiguration configuration)
+        public PostsController(IPostService service, 
+            IPhotoService photoService, 
+            ITagService tagService,
+            IConfiguration configuration)
         {
+            TagService = tagService;
+            PhotoService = photoService;
             PostService = service;
             Configuration = configuration;
         }
 
         /// <summary>
-        /// METHOD: GET
+        /// METHOD: GET;
         /// ROUTE: api/posts;
         /// HEADER: jwt-token;
         /// </summary>
@@ -72,6 +79,56 @@ namespace WebPhotoAlbum.Controllers
                     return StatusCode(204);
                 else
                     return Ok(result);
+            }
+            catch (ArgumentException ex)
+            { return BadRequest(ex.Message); }
+            catch (Exception ex)
+            { return StatusCode(500, "Oops, something went wrong!"); }
+        }
+
+        /// <summary>
+        /// METHOD: GET;
+        /// ROUTE: api/posts/<int>/photo
+        /// HEADER: jwt-token;
+        /// </summary>
+        /// <param name="id">ID of post (ACTUAL ID FROM DATABASE)</param>
+        /// <returns>Photo of the post</returns>
+        [HttpGet("{id}/photo")]
+        public async Task<IActionResult> GetPostPhoto(int id)
+        {
+            string username = User.Identity.Name;
+            try
+            {
+                PhotoDTO photo = await PhotoService.GetPhotoOfPost(new PostDTO { Id = id });
+
+                if (photo == null)
+                    return StatusCode(204);
+                else
+                    return Ok(photo);
+            }
+            catch (ArgumentException ex)
+            { return BadRequest(ex.Message); }
+            catch (Exception ex)
+            { return StatusCode(500, "Oops, something went wrong!"); }
+        }
+
+        /// <summary>
+        /// METHOD: GET;
+        /// ROUTE: api/posts/<int>/tags
+        /// HEADER: jwt-token;
+        /// </summary>
+        /// <param name="id">ID of post (ACTUAL ID FROM DATABASE)</param>
+        /// <returns>Search tags of post</returns>
+        [HttpGet("{id}/tags")]
+        public async Task<IActionResult> GetAllTagsOfPost(int id)
+        {
+            try
+            {
+                IEnumerable<SearchTagDTO> result = await TagService.GetPostTags(new PostDTO { Id = id });
+
+                if (result.Count() == 0)
+                    return StatusCode(204);
+                return Ok(result);
             }
             catch (ArgumentException ex)
             { return BadRequest(ex.Message); }
@@ -143,7 +200,7 @@ namespace WebPhotoAlbum.Controllers
                 PostDTO postToChange = posts.FirstOrDefault();
 
                 if (postToChange == null)
-                    return BadRequest("Post with this ID doesn't exist!");
+                    return Unauthorized();
 
                 if (photoFile.Length > 0)
                 {
@@ -189,7 +246,7 @@ namespace WebPhotoAlbum.Controllers
                 PostDTO postToChange = posts.FirstOrDefault();
 
                 if (postToChange == null)
-                    return BadRequest("Post with this ID doesn't exist!");
+                    return Unauthorized();
 
                 await PostService.EditDescription(new PostDTO {
                     Id = postToChange.Id,
@@ -206,12 +263,67 @@ namespace WebPhotoAlbum.Controllers
         }
 
         /// <summary>
+        /// METHOD: PUT;
+        /// ROUTE: api/posts/<int>/tag
+        /// HEADER: jwt-token;
+        /// </summary>
+        /// <param name="id">Index of user post (NOT ACTUAL ID IN DATABASE!)</param>
+        /// <param name="tagName">Unique name for tag to attach</param>
+        /// <returns>Status codes</returns>
+        [HttpPut("{id}/tag")]
+        public async Task<IActionResult> AttachTagToThePost(int id, [FromForm] string tagName)
+        {
+            string username = User.Identity.Name;
+            try
+            {
+                IEnumerable<PostDTO> posts = await PostService.GetUserPostsRange(new UserDTO { UserName = username }, id, id + 1);
+                PostDTO postToChange = posts.FirstOrDefault();
+
+                SearchTagDTO tagToAttach = await TagService.GetTagByName(tagName);
+
+                if (postToChange == null || tagToAttach == null)
+                    return Unauthorized();
+
+                await TagService.PutTagOnPost(tagToAttach, postToChange);
+                return Ok("Description changed successfully!");
+            }
+            catch (ArgumentException ex)
+            { return BadRequest(ex.Message); }
+            catch (Exception ex)
+            { return StatusCode(500, "Oops, something went wrong!"); }
+        }
+
+        /// <summary>
         /// METHOD: DELETE;
-        /// ROUTE: api/Posts/<int>
+        /// ROUTE: api/posts/<int>/tag
         /// HEADER: jwt-token;
         /// </summary>
         /// <param name="id">Index of user's post (NOT ACTUAL ID OF POST IN DATABASE!)</param>
+        /// /// <param name="tagName">Unique name for tag to detach</param>
         /// <returns>Status codes</returns>
+        [HttpDelete("{id}/tag")]
+        public async Task<IActionResult> DetachTagToThePost(int id, [FromForm] string tagName)
+        {
+            string username = User.Identity.Name;
+            try
+            {
+                IEnumerable<PostDTO> posts = await PostService.GetUserPostsRange(new UserDTO { UserName = username }, id, id + 1);
+                PostDTO postToChange = posts.FirstOrDefault();
+
+                SearchTagDTO tagToAttach = await TagService.GetTagByName(tagName);
+
+                if (postToChange == null || tagToAttach == null)
+                    return Unauthorized();
+
+                await TagService.DetachTagFromPost(tagToAttach, postToChange);
+                return Ok("Description changed successfully!");
+            }
+            catch (ArgumentException ex)
+            { return BadRequest(ex.Message); }
+            catch (Exception ex)
+            { return StatusCode(500, "Oops, something went wrong!"); }
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -221,10 +333,10 @@ namespace WebPhotoAlbum.Controllers
                 IEnumerable<PostDTO> posts = await PostService.GetUserPostsRange(new UserDTO { UserName = username }, id, id + 1);
 
                 if (posts.FirstOrDefault() == null)
-                    return BadRequest("Post with this ID doesn't exist");
+                    return Unauthorized();
 
                 await PostService.DeletePost(posts.FirstOrDefault());
-                return Ok();
+                return Ok("Post was successfully deleted!");
             }
             catch (ArgumentException ex)
             { return BadRequest(ex.Message); }

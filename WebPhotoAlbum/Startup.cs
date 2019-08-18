@@ -32,7 +32,12 @@ namespace WebPhotoAlbum
             services.AddSQLServerUnitOfWorkByFileConfig("appsettings.json", "SqlServerConnection");
 
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<IEmojiService, EmojiService>();
             services.AddScoped<IPostService, PostService>();
+            services.AddScoped<IPhotoService, PhotoService>();
+            services.AddScoped<ITagService, TagService>();
+            services.AddScoped<IUserService, UserService>();
 
             services.AddCors();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
