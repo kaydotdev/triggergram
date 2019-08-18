@@ -44,7 +44,15 @@ namespace PhotoAlbumDAL.Repositories
             IEnumerable<SearchTag> tags = _dbcontext.Tags;
 
             foreach (var tag in tags)
+            {
                 _dbcontext.Entry(tag).Collection(s => s.PostsSearchTags).Load();
+
+                foreach (var postsearchtag in tag.PostsSearchTags)
+                {
+                    _dbcontext.Entry(postsearchtag).Reference(p => p.PhotoPostNav).Load();
+                    _dbcontext.Entry(postsearchtag).Reference(p => p.SearchTagNav).Load();
+                }
+            }
 
             return tags;
         }
@@ -54,7 +62,15 @@ namespace PhotoAlbumDAL.Repositories
             IEnumerable<SearchTag> tags = _dbcontext.Tags;
 
             foreach (var tag in tags)
+            {
                 await _dbcontext.Entry(tag).Collection(s => s.PostsSearchTags).LoadAsync();
+
+                foreach (var postsearchtag in tag.PostsSearchTags)
+                {
+                    await _dbcontext.Entry(postsearchtag).Reference(p => p.PhotoPostNav).LoadAsync();
+                    await _dbcontext.Entry(postsearchtag).Reference(p => p.SearchTagNav).LoadAsync();
+                }
+            }
 
             return tags;
         }
@@ -64,7 +80,15 @@ namespace PhotoAlbumDAL.Repositories
             IEnumerable<SearchTag> tags = _dbcontext.Tags.Where(predicate);
 
             foreach (var tag in tags)
+            {
                 _dbcontext.Entry(tag).Collection(s => s.PostsSearchTags).Load();
+
+                foreach (var postsearchtag in tag.PostsSearchTags)
+                {
+                    _dbcontext.Entry(postsearchtag).Reference(p => p.PhotoPostNav).Load();
+                    _dbcontext.Entry(postsearchtag).Reference(p => p.SearchTagNav).Load();
+                }
+            }
 
             return tags;
         }
@@ -74,7 +98,15 @@ namespace PhotoAlbumDAL.Repositories
             IEnumerable<SearchTag> tags = _dbcontext.Tags.Where(predicate);
 
             foreach (var tag in tags)
+            {
                 await _dbcontext.Entry(tag).Collection(s => s.PostsSearchTags).LoadAsync();
+
+                foreach (var postsearchtag in tag.PostsSearchTags)
+                {
+                    await _dbcontext.Entry(postsearchtag).Reference(p => p.PhotoPostNav).LoadAsync();
+                    await _dbcontext.Entry(postsearchtag).Reference(p => p.SearchTagNav).LoadAsync();
+                }
+            }
 
             return tags;
         }
@@ -84,7 +116,15 @@ namespace PhotoAlbumDAL.Repositories
             SearchTag tag = _dbcontext.Tags.Find(key);
 
             if (tag != null)
+            {
                 _dbcontext.Entry(tag).Collection(s => s.PostsSearchTags).Load();
+
+                foreach (var postsearchtag in tag.PostsSearchTags)
+                {
+                    _dbcontext.Entry(postsearchtag).Reference(p => p.PhotoPostNav).Load();
+                    _dbcontext.Entry(postsearchtag).Reference(p => p.SearchTagNav).Load();
+                }
+            }
 
             return tag;
         }
@@ -94,7 +134,15 @@ namespace PhotoAlbumDAL.Repositories
             SearchTag tag = _dbcontext.Tags.Find(key);
 
             if (tag != null)
+            {
                 await _dbcontext.Entry(tag).Collection(s => s.PostsSearchTags).LoadAsync();
+
+                foreach (var postsearchtag in tag.PostsSearchTags)
+                {
+                    await _dbcontext.Entry(postsearchtag).Reference(p => p.PhotoPostNav).LoadAsync();
+                    await _dbcontext.Entry(postsearchtag).Reference(p => p.SearchTagNav).LoadAsync();
+                }
+            }
 
             return tag;
         }

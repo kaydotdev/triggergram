@@ -47,9 +47,24 @@ namespace PhotoAlbumDAL.Repositories
             {
                 _dbcontext.Entry(post).Reference(p => p.UserNav).Load();
                 _dbcontext.Entry(post).Reference(p => p.PhotoNav).Load();
+
                 _dbcontext.Entry(post).Collection(p => p.PostsEmojiMarks).Load();
+
+                foreach (var emoji in post.PostsEmojiMarks)
+                {
+                    _dbcontext.Entry(emoji).Reference(e => e.EmojiMarkNav).Load();
+                    _dbcontext.Entry(emoji).Reference(e => e.UserNav).Load();
+                }
+
                 _dbcontext.Entry(post).Collection(p => p.PostsSearchTags).Load();
+
+                foreach (var tag in post.PostsSearchTags)
+                    _dbcontext.Entry(tag).Reference(t => t.SearchTagNav).Load();
+
                 _dbcontext.Entry(post).Collection(p => p.PostsComments).Load();
+
+                foreach (var comment in post.PostsComments)
+                    _dbcontext.Entry(comment).Reference(c => c.PhotoPostNav).Load();
             }
 
             return posts;
@@ -63,9 +78,24 @@ namespace PhotoAlbumDAL.Repositories
             {
                 await _dbcontext.Entry(post).Reference(p => p.UserNav).LoadAsync();
                 await _dbcontext.Entry(post).Reference(p => p.PhotoNav).LoadAsync();
+
                 await _dbcontext.Entry(post).Collection(p => p.PostsEmojiMarks).LoadAsync();
+
+                foreach (var emoji in post.PostsEmojiMarks)
+                {
+                    await _dbcontext.Entry(emoji).Reference(e => e.EmojiMarkNav).LoadAsync();
+                    await _dbcontext.Entry(emoji).Reference(e => e.UserNav).LoadAsync();
+                }
+
                 await _dbcontext.Entry(post).Collection(p => p.PostsSearchTags).LoadAsync();
+
+                foreach (var tag in post.PostsSearchTags)
+                    await _dbcontext.Entry(tag).Reference(t => t.SearchTagNav).LoadAsync();
+
                 await _dbcontext.Entry(post).Collection(p => p.PostsComments).LoadAsync();
+
+                foreach (var comment in post.PostsComments)
+                    await _dbcontext.Entry(comment).Reference(c => c.PhotoPostNav).LoadAsync();
             }
 
             return posts;
@@ -79,9 +109,24 @@ namespace PhotoAlbumDAL.Repositories
             {
                 _dbcontext.Entry(post).Reference(p => p.UserNav).Load();
                 _dbcontext.Entry(post).Reference(p => p.PhotoNav).Load();
+
                 _dbcontext.Entry(post).Collection(p => p.PostsEmojiMarks).Load();
+
+                foreach (var emoji in post.PostsEmojiMarks)
+                {
+                    _dbcontext.Entry(emoji).Reference(e => e.EmojiMarkNav).Load();
+                    _dbcontext.Entry(emoji).Reference(e => e.UserNav).Load();
+                }
+
                 _dbcontext.Entry(post).Collection(p => p.PostsSearchTags).Load();
+
+                foreach (var tag in post.PostsSearchTags)
+                    _dbcontext.Entry(tag).Reference(t => t.SearchTagNav).Load();
+
                 _dbcontext.Entry(post).Collection(p => p.PostsComments).Load();
+
+                foreach (var comment in post.PostsComments)
+                    _dbcontext.Entry(comment).Reference(c => c.PhotoPostNav).Load();
             }
 
             return posts;
@@ -95,9 +140,24 @@ namespace PhotoAlbumDAL.Repositories
             {
                 await _dbcontext.Entry(post).Reference(p => p.UserNav).LoadAsync();
                 await _dbcontext.Entry(post).Reference(p => p.PhotoNav).LoadAsync();
+
                 await _dbcontext.Entry(post).Collection(p => p.PostsEmojiMarks).LoadAsync();
+
+                foreach (var emoji in post.PostsEmojiMarks)
+                {
+                    await _dbcontext.Entry(emoji).Reference(e => e.EmojiMarkNav).LoadAsync();
+                    await _dbcontext.Entry(emoji).Reference(e => e.UserNav).LoadAsync();
+                }
+
                 await _dbcontext.Entry(post).Collection(p => p.PostsSearchTags).LoadAsync();
+
+                foreach (var tag in post.PostsSearchTags)
+                    await _dbcontext.Entry(tag).Reference(t => t.SearchTagNav).LoadAsync();
+
                 await _dbcontext.Entry(post).Collection(p => p.PostsComments).LoadAsync();
+
+                foreach (var comment in post.PostsComments)
+                    await _dbcontext.Entry(comment).Reference(c => c.PhotoPostNav).LoadAsync();
             }
 
             return posts;
@@ -111,9 +171,24 @@ namespace PhotoAlbumDAL.Repositories
             {
                 _dbcontext.Entry(post).Reference(p => p.UserNav).Load();
                 _dbcontext.Entry(post).Reference(p => p.PhotoNav).Load();
+
                 _dbcontext.Entry(post).Collection(p => p.PostsEmojiMarks).Load();
+
+                foreach (var emoji in post.PostsEmojiMarks)
+                {
+                    _dbcontext.Entry(emoji).Reference(e => e.EmojiMarkNav).Load();
+                    _dbcontext.Entry(emoji).Reference(e => e.UserNav).Load();
+                }
+
                 _dbcontext.Entry(post).Collection(p => p.PostsSearchTags).Load();
+
+                foreach (var tag in post.PostsSearchTags)
+                    _dbcontext.Entry(tag).Reference(t => t.SearchTagNav).Load();
+
                 _dbcontext.Entry(post).Collection(p => p.PostsComments).Load();
+
+                foreach (var comment in post.PostsComments)
+                    _dbcontext.Entry(comment).Reference(c => c.PhotoPostNav).Load();
             }
 
             return post;
@@ -127,9 +202,24 @@ namespace PhotoAlbumDAL.Repositories
             {
                 await _dbcontext.Entry(post).Reference(p => p.UserNav).LoadAsync();
                 await _dbcontext.Entry(post).Reference(p => p.PhotoNav).LoadAsync();
+
                 await _dbcontext.Entry(post).Collection(p => p.PostsEmojiMarks).LoadAsync();
+
+                foreach (var emoji in post.PostsEmojiMarks)
+                {
+                    await _dbcontext.Entry(emoji).Reference(e => e.EmojiMarkNav).LoadAsync();
+                    await _dbcontext.Entry(emoji).Reference(e => e.UserNav).LoadAsync();
+                }
+
                 await _dbcontext.Entry(post).Collection(p => p.PostsSearchTags).LoadAsync();
+
+                foreach (var tag in post.PostsSearchTags)
+                    await _dbcontext.Entry(tag).Reference(t => t.SearchTagNav).LoadAsync();
+
                 await _dbcontext.Entry(post).Collection(p => p.PostsComments).LoadAsync();
+
+                foreach (var comment in post.PostsComments)
+                    await _dbcontext.Entry(comment).Reference(c => c.PhotoPostNav).LoadAsync();
             }
 
             return post;
