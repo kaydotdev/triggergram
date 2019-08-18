@@ -29,8 +29,10 @@ namespace WebPhotoAlbum
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddSQLServerUnitOfWorkByFileConfig("appsettings.json", "SqlServerConnection");
+            services.AddDistributedMemoryCache();
+            services.AddSession();
 
+            services.AddSQLServerUnitOfWorkByFileConfig("appsettings.json", "SqlServerConnection");
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<ICommentService, CommentService>();
             services.AddScoped<IEmojiService, EmojiService>();
@@ -73,6 +75,7 @@ namespace WebPhotoAlbum
             }
 
             app.UseCors(a => a.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            app.UseSession();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseAuthentication();

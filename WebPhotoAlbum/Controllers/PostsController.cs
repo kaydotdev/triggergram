@@ -19,6 +19,7 @@ namespace WebPhotoAlbum.Controllers
     [ApiController]
     public class PostsController : ControllerBase
     {
+        public IEmojiService EmojiService { get; set; }
         public ITagService TagService { get; }
         public IPhotoService PhotoService { get; }
         public IPostService PostService { get; }
@@ -27,8 +28,10 @@ namespace WebPhotoAlbum.Controllers
         public PostsController(IPostService service, 
             IPhotoService photoService, 
             ITagService tagService,
+            IEmojiService emojiService,
             IConfiguration configuration)
         {
+            EmojiService = emojiService;
             TagService = tagService;
             PhotoService = photoService;
             PostService = service;
@@ -114,7 +117,7 @@ namespace WebPhotoAlbum.Controllers
 
         /// <summary>
         /// METHOD: GET;
-        /// ROUTE: api/posts/<int>/tags
+        /// ROUTE: api/posts/<int>/tags;
         /// HEADER: jwt-token;
         /// </summary>
         /// <param name="id">ID of post (ACTUAL ID FROM DATABASE)</param>
@@ -125,6 +128,78 @@ namespace WebPhotoAlbum.Controllers
             try
             {
                 IEnumerable<SearchTagDTO> result = await TagService.GetPostTags(new PostDTO { Id = id });
+
+                if (result.Count() == 0)
+                    return StatusCode(204);
+                return Ok(result);
+            }
+            catch (ArgumentException ex)
+            { return BadRequest(ex.Message); }
+            catch (Exception ex)
+            { return StatusCode(500, "Oops, something went wrong!"); }
+        }
+
+        /// <summary>
+        /// METHOD: GET;
+        /// ROUTE: api/posts/<int>/emojis;
+        /// HEADER: jwt-token;
+        /// </summary>
+        /// <param name="id">ID of post (ACTUAL ID FROM DATABASE)</param>
+        /// <returns>Emojis of post</returns>
+        [HttpGet("{id}/emojis")]
+        public async Task<IActionResult> GetAllEmojiesFromPost(int id)
+        {
+            try
+            {
+                IEnumerable<EmojiDTO> result = await EmojiService.GetAllEmojiesFromPost(new PostDTO { Id = id });
+
+                if (result.Count() == 0)
+                    return StatusCode(204);
+                return Ok(result);
+            }
+            catch (ArgumentException ex)
+            { return BadRequest(ex.Message); }
+            catch (Exception ex)
+            { return StatusCode(500, "Oops, something went wrong!"); }
+        }
+
+        /// <summary>
+        /// METHOD: GET;
+        /// ROUTE: api/posts/<int>/emojis/count;
+        /// HEADER: jwt-token;
+        /// </summary>
+        /// <param name="id">ID of post (ACTUAL ID FROM DATABASE)</param>
+        /// <returns>Count of each emoji of post</returns>
+        [HttpGet("{id}/emojis/count")]
+        public async Task<IActionResult> GetAmmoutOfEmojiesOnPost(int id)
+        {
+            try
+            {
+                IEnumerable<GroupedEmojiDTO> result = await EmojiService.GetAmmoutOfEmojiesOnPost(new PostDTO { Id = id });
+
+                if (result.Count() == 0)
+                    return StatusCode(204);
+                return Ok(result);
+            }
+            catch (ArgumentException ex)
+            { return BadRequest(ex.Message); }
+            catch (Exception ex)
+            { return StatusCode(500, "Oops, something went wrong!"); }
+        }
+
+        /// <summary>
+        /// METHOD: GET;
+        /// ROUTE: api/posts/<int>/emojis/user;
+        /// HEADER: jwt-token;
+        /// </summary>
+        /// <param name="id">ID of post (ACTUAL ID FROM DATABASE)</param>
+        /// <returns>Every emoji and user that marked it of post</returns>
+        [HttpGet("{id}/emojis/user")]
+        public async Task<IActionResult> GetEmojiesAndUsersOnPost(int id)
+        {
+            try
+            {
+                IEnumerable<UsersEmojiDTO> result = await EmojiService.GetEmojiesAndUsersOnPost(new PostDTO { Id = id });
 
                 if (result.Count() == 0)
                     return StatusCode(204);
