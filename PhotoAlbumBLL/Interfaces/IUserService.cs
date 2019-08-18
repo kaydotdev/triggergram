@@ -10,5 +10,6 @@ namespace PhotoAlbumBLL.Interfaces
     {
         Task PromoteUser(UserDTO user, UserRoleDTO role);
         Task DeleteUser(UserDTO user);
+        Task<UserDTO> GetUserByUserName(string username);
     }
 }

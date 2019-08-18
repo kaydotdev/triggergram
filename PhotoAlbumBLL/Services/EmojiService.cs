@@ -89,6 +89,26 @@ namespace PhotoAlbumBLL.Services
                 });
         }
 
+        public async Task<IEnumerable<UsersEmojiDTO>> GetEmojiesAndUsersOnPost(PostDTO post)
+        {
+            Queue<UsersEmojiDTO> result = new Queue<UsersEmojiDTO>();
+            PhotoPost seekedPost = await _dbcontext.Posts.GetByKeyAsync(post.Id);
+
+            if (seekedPost == null)
+                return null;
+
+            IEnumerable <PostsEmojiMark> postsEmojiMarks = seekedPost.PostsEmojiMarks;
+
+            foreach (var mark in postsEmojiMarks)
+                result.Enqueue(new UsersEmojiDTO
+                {
+                    Emoji = new EmojiDTO { Name = mark.EmojiMarkNav.Name, Source = mark.EmojiMarkNav.Source },
+                    Username = (mark.UserId == null) ? null : mark.UserNav.Nickname
+                }) ;
+
+            return result;
+        }
+
         public async Task MarkEmojiToPost(EmojiDTO emoji, PostDTO post, UserDTO user)
         {
             PhotoPost postToMark = await _dbcontext.Posts.GetByKeyAsync(post.Id);

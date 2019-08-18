@@ -46,5 +46,13 @@ namespace PhotoAlbumBLL.Services
         }
 
         public void Dispose() { _dbcontext.Dispose(); }
+
+        public async Task<UserDTO> GetUserByUserName(string username)
+        {
+            IEnumerable<User> users = await _dbcontext.Users.GetByConditionAsync(u => u.Nickname == username);
+            User userToPromote = users.FirstOrDefault();
+
+            return new UserDTO { UserName = userToPromote.Nickname };
+        }
     }
 }

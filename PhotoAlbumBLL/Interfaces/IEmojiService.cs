@@ -13,6 +13,7 @@ namespace PhotoAlbumBLL.Interfaces
         Task<IEnumerable<EmojiDTO>> GetAllEmojies();
         Task<IEnumerable<EmojiDTO>> GetAllEmojiesFromPost(PostDTO post);
         Task<IEnumerable<GroupedEmojiDTO>> GetAmmoutOfEmojiesOnPost(PostDTO post);
+        Task<IEnumerable<UsersEmojiDTO>> GetEmojiesAndUsersOnPost(PostDTO post);
         Task MarkEmojiToPost(EmojiDTO emoji, PostDTO post, UserDTO user);
         Task RemoveEmojiToPost(EmojiDTO emoji, PostDTO post, UserDTO user);
     }
