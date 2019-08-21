@@ -24,6 +24,20 @@ namespace WebPhotoAlbum.Controllers
             EmojiService = emojiService;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllEmojies()
+        {
+            try
+            {
+                IEnumerable<EmojiDTO> emojis = await EmojiService.GetAllEmojies();
+                return Ok(emojis);
+            }
+            catch (ArgumentException ex)
+            { return BadRequest(ex.Message); }
+            catch (Exception ex)
+            { return StatusCode(500, "Oops, something went wrong!"); }
+        }
+
         /// <summary>
         /// METHOD: POST;
         /// ROUTE: api/emoji;

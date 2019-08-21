@@ -63,6 +63,7 @@ namespace WebPhotoAlbum.Controllers
             JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
             SecurityToken token = handler.CreateToken(descriptor);
 
+            Response.Cookies.Append("token", handler.WriteToken(token).ToString());
             return Ok(new {
                 token = handler.WriteToken(token)
             });

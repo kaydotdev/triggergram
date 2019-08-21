@@ -67,8 +67,8 @@ namespace WebPhotoAlbum.Controllers
         /// ROUTE: api/posts/<int>-<int>;
         /// HEADER: jwt-token;
         /// </summary>
-        /// <param name="from">Begin index of posts</param>
-        /// <param name="to">End index of posts</param>
+        /// <param name="from">Begin index of posts (NOT ACTUAL ID FROM DATABASE)</param>
+        /// <param name="to">End index of posts (NOT ACTUAL ID FROM DATABASE)</param>
         /// <returns>Range of posts between begin index and end index</returns>
         [HttpGet("{from}-{to}")]
         public async Task<IActionResult> GetUserPostsRange(int from, int to)

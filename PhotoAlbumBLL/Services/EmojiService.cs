@@ -19,7 +19,7 @@ namespace PhotoAlbumBLL.Services
 
         public async Task AddEmoji(EmojiDTO emoji)
         {
-            if (emoji.Source == null || emoji.Source.Length > 0)
+            if (emoji.Source == null || emoji.Source.Length == 0)
                 throw new ArgumentException("Emoji picure cannot be empty!");
 
             if (_dbcontext.Emojis.GetByCondition(e => e.Name == emoji.Name).FirstOrDefault() == null)

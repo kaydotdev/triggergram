@@ -1,0 +1,14 @@
+<h1>Angular 7 FormData (multipart/data-form) Example</h1>
+<div>
+    <form [formGroup] = "uploadForm" (ngSubmit)="submitPost()">   
+        <div>
+            <input type="text" name="description" (change)="onFileSelected($event)" />
+        </div>   
+        <div>
+            <input type="file" name="photo" (change)="onFileSelected($event)" />
+        </div>
+        <div>
+            <button type="submit">Upload</button>
+        </div>
+    </form>
+</div>

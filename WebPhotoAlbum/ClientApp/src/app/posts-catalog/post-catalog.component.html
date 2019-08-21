@@ -1,0 +1,24 @@
+<h1>Hello, @{{ currentUser }}</h1>
+<post-catalog-add></post-catalog-add>
+
+<div *ngIf="!postPreview">
+    <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+
+<div *ngIf="postPreview" class="row">
+    <div class="col" *ngFor="let post of postPreview">
+        <div *ngIf="!post">
+            <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <div *ngIf="post" class="card bg-dark text-white">
+            <img src="data:image/jpeg;base64,{{ post.photoSource }}" class="card-img">
+            <div class="card-img-overlay">
+                <h5 class="card-title">Card title</h5>
+            </div>
+        </div>
+    </div>
+</div>

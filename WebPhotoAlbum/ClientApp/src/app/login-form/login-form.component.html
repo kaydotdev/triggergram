@@ -1,0 +1,48 @@
+<div *ngIf="isLoginState" class="form-signin text-center">
+    <div class="text-center mb-4">
+        <img class="mb-4" src="Images/sign-in-icon.jpg" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">Log In here!</h1>
+    </div>
+
+    <div class="alert alert-danger" role="alert" *ngIf="errorMessage != ''">{{errorMessage}}</div>
+
+    <div class="form-label-group">
+        <input type="text" [(ngModel)]="userToLogin.username" id="UsernameInput" class="form-control" [class.is-valid]="isRed" placeholder="the-hansome-one" autofocus="">
+        <label for="UsernameInput">Username</label>
+    </div>
+
+    <div class="form-label-group">
+        <input type="password" [(ngModel)]="userToLogin.password" id="PasswordInput" class="form-control" placeholder="*********" required="">
+        <label for="PasswordInput">Password</label>
+    </div>
+
+    <button class="btn btn-lg btn-primary btn-block" type="button" (click)="Login()">
+        <span *ngIf="isRequestSent" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>Log In
+    </button>
+    <button class="btn btn-lg btn-link btn-block" type="button" (click)="switchModes()">First time here? Sign up for free!</button>
+</div>
+
+<div *ngIf="!isLoginState" class="form-signin text-center">
+<div class="text-center mb-4">
+    <img class="mb-4" src="Images/sign-in-icon.jpg" alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">Sign Up here!</h1>
+</div>
+
+<div class="form-label-group">
+    <input type="text" [(ngModel)]="userToSignup.username" id="UsernameInput" class="form-control" placeholder="the-hansome-one" autofocus="">
+    <label for="UsernameInput">Username</label>
+</div>
+
+<div class="form-label-group">
+    <input type="password" [(ngModel)]="userToSignup.password" id="PasswordInput" class="form-control" placeholder="*********" required="">
+    <label for="PasswordInput">Password</label>
+</div>
+
+<div class="form-label-group">
+    <input type="password" [(ngModel)]="userToSignup.passwordconfirmation" id="PasswordConfirm" class="form-control" placeholder="*********" required="">
+    <label for="PasswordConfirm">Confirm password</label>
+</div>
+
+<button class="btn btn-lg btn-primary btn-block" type="button" (click)="Signup()">Sign Up</button>
+<button class="btn btn-lg btn-link btn-block" type="button" (click)="switchModes()">Already signed up? Login here!</button>
+</div>
