@@ -1,31 +1,33 @@
 import { Component } from '@angular/core';
-import { PostCatalogService } from './post-catalog.service';
+import { TagSearchCatalogService } from './tag-search-catalog.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { PostPreview } from 'src/app/dto/PostPreview';
 import { PhotoPost } from 'src/app/dto/PhotoPost';
 
 @Component({
-    selector: 'post-catalog',
-    templateUrl: './post-catalog.component.html',
-    styleUrls: ['./post-catalog.component.css'],
-    providers: [PostCatalogService, CookieService]
+    selector: 'tag-search-catalog',
+    templateUrl: './tag-search-catalog.component.html',
+    styleUrls: ['./tag-search-catalog.component.css'],
+    providers: [TagSearchCatalogService, CookieService]
 })
-export class PostCatalogComponent {
+export class TagSearchCatalogComponent {
+    searchTag = '';
     startIndex = 0;
     catalogPhotoAmmoutWidth = 3;
     catalogPhotoLoadingStep = 9;
-    currentUser: string;
 
     isInCatalog = true;
     indexOfViewPost = 0;
 
     postPreview: PostPreview[] = [];
   
-    constructor(private postCatalogService: PostCatalogService,
-                private cookieService: CookieService,
+    constructor(private tagSearchCatalogService: TagSearchCatalogService,
                 private router: Router) {
-        this.currentUser = this.cookieService.get("username");
+    }
+
+    search()
+    {
         this.getPostPreviewRange(this.startIndex, this.startIndex + this.catalogPhotoLoadingStep);
     }
 
@@ -43,9 +45,7 @@ export class PostCatalogComponent {
 
     getPostPreviewRange(from: number, to: number)
     {
-        //this.postPreview = [];
-
-        this.postCatalogService.getUserPostsRange(from, to).subscribe(
+        this.tagSearchCatalogService.getTagPostsRange(this.searchTag, from, to).subscribe(
             (data) => {
                 let PhotoData: PhotoPost[] = Array.prototype.slice.call(data);
                 console.log(this.postPreview);
@@ -55,7 +55,7 @@ export class PostCatalogComponent {
                     this.postPreview.push(new PostPreview());
                     this.postPreview[i].id = PhotoData[i].id;
 
-                    this.postCatalogService.getPostPhoto(PhotoData[i].id).subscribe(
+                    this.tagSearchCatalogService.getPostPhoto(PhotoData[i].id).subscribe(
                         (data) => {
                             let postHeader = {
                                 id:1, 
@@ -83,7 +83,7 @@ export class PostCatalogComponent {
                 this.router.navigate(['/login']);
                 break;
             default:
-                console.error("Server returned code: ${statusCode}");
+                console.log("Server returned code: " + statusCode);
         }
     }
 }

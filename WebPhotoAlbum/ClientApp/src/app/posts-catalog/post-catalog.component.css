@@ -1,0 +1,11 @@
+.catalogcell { 
+    width:auto; 
+    text-align:center;
+    padding:20px; 
+} 
+
+img { 
+    max-width: 800px;
+    min-width: 800px;
+    height:auto; 
+} 

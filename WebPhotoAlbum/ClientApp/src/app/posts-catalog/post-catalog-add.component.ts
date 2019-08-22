@@ -11,6 +11,8 @@ import { PostPreview } from 'src/app/dto/PostPreview';
     providers: [FormBuilder, PostCatalogService, CookieService]
 })
 export class PostCatalogAddComponent implements OnInit {
+    dataMessage = '';
+    errorMessage = '';
     postPreview: PostPreview[] = [];
     uploadForm: FormGroup;  
   
@@ -25,42 +27,55 @@ export class PostCatalogAddComponent implements OnInit {
 
     onFileSelected(event)
     {
+        this.clearMessages();
         if (event.target.files.length > 0) {
             const file = event.target.files[0];
             this.uploadForm.get('photo').setValue(file);
         }
     }
 
+    clearMessages()
+    {
+        this.errorMessage = '';
+        this.dataMessage = '';
+    }
+
     onDescriptionChanged(event)
     {
+        this.clearMessages();
         this.uploadForm.get('description').setValue(event.target.value);
     }
 
     submitPost()
     {
-        const formData = new FormData();
+        this.clearMessages();
+        let formData = new FormData();
 
         formData.append('photoFile', this.uploadForm.get('photo').value);
         formData.append('postDescription', this.uploadForm.get('description').value);
-    
-        console.log(formData);
 
-        //this.postCatalogService.addNewPost(formData).subscribe(
-         //   (res) => console.log(res),
-         //   (err) => console.log(err)
-        //);
+        this.postCatalogService.addNewPost(formData).subscribe(
+            (res) => this.dataMessage = 'New post was successfully added!',
+            (error) => this.handleServerError(error.status)
+        );
     }
 
     ngOnInit(): void {
-        throw new Error("Method not implemented.");
+        this.clearMessages();
     }
 
     handleServerError(statusCode: number): void
     {
         switch (statusCode) 
         {
+            case 400:
+                this.errorMessage = 'Invalid input data!';
+                break;
             case 401:
                 this.router.navigate(['/login']);
+                break;
+            case 500:
+                this.errorMessage = 'Oops! Something went wrong!';
                 break;
             default:
                 console.error("Server returned code: ${statusCode}");

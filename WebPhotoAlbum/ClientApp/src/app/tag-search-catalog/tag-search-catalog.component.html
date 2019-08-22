@@ -1,0 +1,37 @@
+<div *ngIf="isInCatalog">
+
+<div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">#</span>
+        </div>
+    <input type="text" [(ngModel)]="searchTag" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+    <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="search()">Search</button>
+    </div>
+</div>
+
+<h1>Tag result for #{{ searchTag }}</h1>
+
+<div *ngIf="!postPreview">
+    <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+
+<div *ngIf="postPreview" class="container">
+    <div class="row" *ngFor="let post of postPreview; let i = index">
+        <div *ngIf="!post">
+            <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <div *ngIf="post" class="card catalogcell">
+            <img src="data:image/jpeg;base64,{{ post.photoSource }}" class="card-img" (click)="viewPost(post.id)">
+        </div>
+    </div>
+</div>
+</div>
+
+<div *ngIf="!isInCatalog">
+<image-card [IdOfPost]="indexOfViewPost" (onChanged)="onChanged($event)"></image-card>
+</div>

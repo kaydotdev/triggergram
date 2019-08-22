@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { ImageCardService } from './image-card.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
@@ -10,12 +10,25 @@ import { PhotoPost } from 'src/app/dto/PhotoPost';
     templateUrl: './image-card.component.html',
     providers: [ImageCardService, CookieService]
 })
-export class ImageCardComponent {
+export class ImageCardComponent implements OnInit {
+    @Input() IdOfPost: number;
+    idForTags: number;
+
     postToView: PostToView;
   
     constructor(private emojiService: ImageCardService,
                 private router: Router) {
-        this.getPostToViewByIndex(0);
+        this.idForTags = this.IdOfPost;
+    }
+
+    ngOnInit(): void {
+        this.getPostToViewByIndex(this.IdOfPost);
+    }
+
+    @Output() onChanged = new EventEmitter<boolean>();
+    change(signal: any)
+    {
+        this.onChanged.emit(signal);
     }
 
     getPostToViewByIndex(index: number)

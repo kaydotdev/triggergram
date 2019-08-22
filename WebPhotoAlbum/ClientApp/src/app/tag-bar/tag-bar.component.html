@@ -1,0 +1,7 @@
+<div class="container">
+    <div *ngIf="tags" class="row">
+        <div *ngFor="let tag of tags" class="col-sm">
+            <span class="badge badge-pill badge-info">{{ tag.name }}</span>
+        </div>
+    </div>
+</div>

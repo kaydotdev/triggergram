@@ -10,9 +10,11 @@ import { ImageCardComponent } from './image-card/image-card.component';
 import { EmojiBarComponent } from './emoji-bar/emoji-bar.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { LoginBarComponent } from './login-bar/login-bar.component';
+import { TagSearchCatalogComponent } from './tag-search-catalog/tag-search-catalog.component'
 import { PostCatalogComponent } from './posts-catalog/post-catalog.component';
 import { PostCatalogCardComponent } from './posts-catalog/post-catalog-card.component';
 import { PostCatalogAddComponent } from './posts-catalog/post-catalog-add.component';
+import { TagBarComponent } from './tag-bar/tag-bar.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { PostCatalogAddComponent } from './posts-catalog/post-catalog-add.compon
     LoginBarComponent,
     PostCatalogComponent,
     PostCatalogCardComponent,
-    PostCatalogAddComponent
+    PostCatalogAddComponent,
+    TagSearchCatalogComponent,
+    TagBarComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -33,7 +37,7 @@ import { PostCatalogAddComponent } from './posts-catalog/post-catalog-add.compon
     ReactiveFormsModule,
     RouterModule.forRoot([
       { path: '', component: PostCatalogComponent, pathMatch: 'full' },
-      { path: 'image-card', component: EmojiBarComponent },
+      { path: 'search-tag', component: TagSearchCatalogComponent },
       { path: 'login', component: LoginFormComponent },
     ])
   ],
