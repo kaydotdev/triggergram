@@ -1,5 +1,0 @@
-{
-	"username": "antonace",
-	"password": "incsharpimthebest",
-	"passwordconfirmation": "incsharpimthebest"
-}
