@@ -13,3 +13,6 @@ A [serverless](https://en.wikipedia.org/wiki/Serverless_computing) approach in b
 
 ![architecture](./docs/album-on-functions.png)
 
+## Resources mention
+
+ - [Favicon.ico](./static/src/favicon.ico) from [freeicons.io](https://freeicons.io)
