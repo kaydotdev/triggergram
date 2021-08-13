@@ -16,8 +16,10 @@ import {
     makeStyles,
     Theme
 } from '@material-ui/core/styles';
+
+import AppBanner from './static/banner.svg';
+
 import './NavBar.css';
-import AppBanner from './banner.svg'
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -72,7 +74,7 @@ function NavBar() {
                     onClose={handleClose}
                 >
                     <MenuItem onClick={handleClose}>Profile</MenuItem>
-                    <MenuItem onClick={handleClose}>My account</MenuItem>
+                    <MenuItem onClick={handleClose}>Settings</MenuItem>
                     <MenuItem onClick={handleClose}>Logout</MenuItem>
                 </Menu>
             </Toolbar>
