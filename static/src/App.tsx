@@ -6,7 +6,6 @@ import {
 import { indigo, blue } from '@material-ui/core/colors';
 import './App.css';
 import NavBar from './NavBar';
-import NavButton from './NavButton';
 
 
 const theme = createTheme({
@@ -23,7 +22,6 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline/>
       <NavBar />
-      <NavButton />
     </ThemeProvider>
   );
 }

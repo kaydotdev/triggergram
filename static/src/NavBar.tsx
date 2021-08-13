@@ -1,27 +1,38 @@
 import { useState, MouseEvent } from 'react';
 import {
-    Typography,
     AppBar,
     Toolbar,
     IconButton,
     Button,
     MenuItem,
     Menu
-} from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
+} from '@material-ui/core'
+import {
+    Menu as MenuIcon,
+    MoreVert as MoreVertIcon
+} from '@material-ui/icons';
 import {
     createStyles,
     makeStyles,
     Theme
 } from '@material-ui/core/styles';
 import './NavBar.css';
+import AppBanner from './banner.svg'
 
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: { flexGrow: 1 },
         menuButton: { marginRight: theme.spacing(2) },
-        title: { flexGrow: 1 }
+        banner: {
+            flexGrow: 1,
+            maxWidth: '150px',
+            marginTop: '5px'
+        },
+        profileButton: {
+            right: 0,
+            position: 'absolute'
+        }
     }),
 );
 
@@ -42,20 +53,16 @@ function NavBar() {
                     color="inherit"
                     aria-label="menu"
                 >
-                <MenuIcon />
+                    <MenuIcon />
                 </IconButton>
-                <Typography
-                    variant="h6"
-                    className={classes.title}
-                >
-                    Album on Functions
-                </Typography>
+                <img src={AppBanner} className={classes.banner} alt="TRIGGERGRAM" />
                 <Button
+                    className={classes.profileButton}
                     aria-controls="profile-menu"
                     aria-haspopup="true"
                     onClick={handleClick}
                 >
-                    Profile
+                    <MoreVertIcon />
                 </Button>
                 <Menu
                     id="profile-menu"
