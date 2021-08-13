@@ -4,8 +4,7 @@ import {
   ThemeProvider
 } from '@material-ui/core/styles';
 import { indigo, blue } from '@material-ui/core/colors';
-import './App.css';
-import NavBar from './NavBar';
+import NavBar from './navbar/NavBar';
 
 
 const theme = createTheme({

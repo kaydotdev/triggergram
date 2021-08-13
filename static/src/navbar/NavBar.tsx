@@ -16,24 +16,25 @@ import {
     makeStyles,
     Theme
 } from '@material-ui/core/styles';
-
-import AppBanner from './static/banner.svg';
-
-import './NavBar.css';
+import MenuBanner from './MenuBanner';
 
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        root: { flexGrow: 1 },
-        menuButton: { marginRight: theme.spacing(2) },
-        banner: {
-            flexGrow: 1,
-            maxWidth: '150px',
-            marginTop: '5px'
+        appbar: {
+            color: '#fff',
+            backgroundColor: '#000 !important'
+        },
+        root: {
+            flexGrow: 1
+        },
+        menuButton: {
+            marginRight: theme.spacing(2)
         },
         profileButton: {
             right: 0,
-            position: 'absolute'
+            position: 'absolute',
+            color: '#fff'
         }
     }),
 );
@@ -47,7 +48,7 @@ function NavBar() {
 
     return (
     <div className={classes.root}>
-        <AppBar position="static">
+        <AppBar className={classes.appbar} position="static">
             <Toolbar>
                 <IconButton
                     edge="start"
@@ -57,7 +58,7 @@ function NavBar() {
                 >
                     <MenuIcon />
                 </IconButton>
-                <img src={AppBanner} className={classes.banner} alt="TRIGGERGRAM" />
+                <MenuBanner />
                 <Button
                     className={classes.profileButton}
                     aria-controls="profile-menu"
