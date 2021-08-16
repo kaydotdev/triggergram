@@ -5,6 +5,7 @@ import {
 } from '@material-ui/core/styles';
 import { indigo, blue } from '@material-ui/core/colors';
 import NavBar from './components/NavBar';
+import SearchBar from './components/SearchBar';
 
 
 const theme = createTheme({
@@ -21,6 +22,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline/>
       <NavBar />
+      <SearchBar />
     </ThemeProvider>
   );
 }

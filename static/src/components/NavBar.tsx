@@ -19,7 +19,7 @@ import {
 import MenuBanner from './MenuBanner';
 
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles((_: Theme) =>
     createStyles({
         appbar: {
             color: '#fff',

@@ -6,7 +6,7 @@ import {
 import AppBanner from '../graphics/banner.svg';
 
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles((_: Theme) =>
     createStyles({
         banner: {
             flexGrow: 1,
