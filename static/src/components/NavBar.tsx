@@ -4,18 +4,18 @@ import {
     Toolbar,
     Button,
     MenuItem,
-    Menu,
-    Badge
-} from '@material-ui/core'
+    Menu
+} from '@material-ui/core';
 import {
-    AccountCircle as AccountCircleIcon,
-    Notifications as NotificationsIcon
+    AccountCircle as AccountCircleIcon
 } from '@material-ui/icons';
 import {
     createStyles,
     makeStyles,
     Theme
 } from '@material-ui/core/styles';
+
+import NotificationButton from './NotificationButton';
 import MenuBanner from './MenuBanner';
 
 
@@ -36,6 +36,7 @@ const useStyles = makeStyles((_: Theme) =>
 
 function NavBar() {
     const classes = useStyles();
+
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
     const handleClick = (event: MouseEvent<HTMLButtonElement>) => { setAnchorEl(event.currentTarget); };
@@ -47,14 +48,7 @@ function NavBar() {
                 <Toolbar>
                     <MenuBanner />
                     <div className={classes.grow} />
-                    <Button
-                        aria-label="notifications"
-                        className={classes.appbarButton}
-                    >
-                        <Badge color="secondary" badgeContent={1}>
-                            <NotificationsIcon />
-                        </Badge>
-                    </Button>
+                    <NotificationButton notificationCount={0} />
                     <Button
                         aria-label="profile"
                         className={classes.appbarButton}
