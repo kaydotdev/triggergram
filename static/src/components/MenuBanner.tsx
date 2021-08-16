@@ -3,7 +3,7 @@ import {
     makeStyles,
     Theme
 } from '@material-ui/core/styles';
-import AppBanner from './banner.svg';
+import AppBanner from '../graphics/banner.svg';
 
 
 const useStyles = makeStyles((theme: Theme) =>

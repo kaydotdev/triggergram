@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function SearchBar() {
+function EmbedSearchBar() {
     const classes = useStyles();
 
     return (
@@ -73,4 +73,4 @@ function SearchBar() {
     );
 }
 
-export default SearchBar;
+export default EmbedSearchBar;
