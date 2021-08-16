@@ -1,0 +1,79 @@
+import {
+    Box,
+    Typography
+} from '@material-ui/core';
+import {
+    createStyles,
+    makeStyles,
+    Theme
+} from '@material-ui/core/styles';
+import { Skeleton } from '@material-ui/lab';
+
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        container: {
+            width: 'calc(100vw / 2 - 56px)',
+            minWidth: '256px',
+            maxWidth: '1024px',
+            margin: theme.spacing(3)
+        },
+        photoWrapper: {
+            position: 'relative',
+            paddingBottom: '56.2%',
+            marginBottom: '8px'
+        },
+        photo: {
+            position: 'absolute',
+            objectFit: 'cover',
+            width: '100%',
+            height: '100%',
+            borderRadius: '10px'
+        }
+    }),
+);
+
+interface MediaPostProps {
+    src?: string,
+    title?: string,
+    account?: string,
+    views?: string,
+    createdAt?: string
+}
+
+function MediaPost(props: MediaPostProps) {
+    const classes = useStyles();
+
+    return (
+        <div>
+            {
+            props.src ? (
+                <div className={classes.container}>
+                    <div className={classes.photoWrapper}>
+                        <img className={classes.photo} alt={props.title} src={props.src} />
+                    </div>
+                    <Box>
+                    <Typography gutterBottom variant="body2">
+                        {props.title}
+                    </Typography>
+                    <Typography display="block" variant="caption" color="textSecondary">
+                        {props.account}
+                    </Typography>
+                    <Typography variant="caption" color="textSecondary">
+                        {`${props.views} • ${props.createdAt}`}
+                    </Typography>
+                    </Box>
+                </div>
+            ) : (
+                <div className={classes.container}>
+                    <Skeleton variant="rect" className={classes.photoWrapper} />
+                    <Skeleton />
+                    <Skeleton width="60%" />
+                </div>
+            )
+            }
+        </div>
+    );
+}
+
+export default MediaPost;
