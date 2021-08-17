@@ -1,6 +1,7 @@
 import {
   CssBaseline,
-  Grid
+  Grid,
+  Typography
 } from '@material-ui/core';
 import {
   createTheme,
@@ -9,9 +10,6 @@ import {
   createStyles,
   Theme
 } from '@material-ui/core/styles';
-import {
-  Typography
-} from '@material-ui/core';
 import { indigo, blue } from '@material-ui/core/colors';
 import NavBar from './components/NavBar';
 import SearchBar from './components/SearchBar';
@@ -34,6 +32,8 @@ const useStyles = makeStyles((theme: Theme) =>
             marginLeft: '24px'
         },
         mediaGrid: {
+            height: 'calc(100vh - 294px)',
+            paddingTop: '5px',
             overflowY: 'auto'
         }
     }),
@@ -46,13 +46,13 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline/>
+      <NavBar />
       <Grid
         container
         direction="column"
         justifyContent="flex-start"
         alignItems="stretch"
       >
-        <NavBar />
         <SearchBar />
         <Typography
           gutterBottom
@@ -61,7 +61,7 @@ function App() {
         >
           Recent updates
         </Typography>
-        <MediaGrid />
+        <div className={classes.mediaGrid}><MediaGrid /></div>
         <Footer />
       </Grid>
     </ThemeProvider>
