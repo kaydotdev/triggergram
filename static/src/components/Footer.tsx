@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         appName: {
             fontWeight: 500,
-            padding: '8px 0 0 8px',
+            padding: '8px 0 0 12px',
             margin: 0
         },
         footer: {
@@ -44,9 +44,12 @@ function Footer() {
           variant="overline"
           display="block"
           gutterBottom>
-            TRIGGERGRAM
+            {(new Date()).getFullYear()} (NC) TRIGGERGRAM
           </Typography>
-          <IconButton aria-label="delete">
+          <IconButton
+            aria-label="github project" onClick={() => {
+              window.location.href = 'https://github.com/antonAce/triggergram';
+            }}>
             <img src={GithubLogo} alt="TRIGGERGRAM" />
           </IconButton>
       </footer>
