@@ -13,7 +13,7 @@ import { Skeleton } from '@material-ui/lab';
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
-            width: 'calc(100vw / 2 - 56px)',
+            width: 'calc(100vw / 3 - 56px)',
             minWidth: '256px',
             maxWidth: '1024px',
             margin: theme.spacing(3)

@@ -25,9 +25,10 @@ const theme = createTheme({
 });
 
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles((_: Theme) =>
     createStyles({
         grid: {
+            justifyContent: 'center',
             margin: '0 8px'
         },
         updates: {
@@ -47,6 +48,8 @@ function App() {
       <SearchBar />
       <Typography gutterBottom variant="h6" className={classes.updates}>Recent updates</Typography>
       <Grid container className={classes.grid}>
+        <MediaPost />
+        <MediaPost />
         <MediaPost />
         <MediaPost />
         <MediaPost />
