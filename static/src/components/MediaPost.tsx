@@ -8,6 +8,7 @@ import {
     Theme
 } from '@material-ui/core/styles';
 import { Skeleton } from '@material-ui/lab';
+import TimeAgo from 'timeago-react';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -37,7 +38,7 @@ interface MediaPostProps {
     title?: string,
     account?: string,
     views?: string,
-    createdAt?: string
+    createdAt?: Date
 }
 
 function MediaPost(props: MediaPostProps) {
@@ -59,7 +60,8 @@ function MediaPost(props: MediaPostProps) {
                         {props.account}
                     </Typography>
                     <Typography variant="caption" color="textSecondary">
-                        {`${props.views} • ${props.createdAt}`}
+                        {props.views + " • "}
+                        <TimeAgo datetime={props.createdAt?.toUTCString() || new Date().toUTCString()} locale='en_us' />
                     </Typography>
                     </Box>
                 </div>
