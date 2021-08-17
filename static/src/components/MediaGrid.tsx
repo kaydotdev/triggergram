@@ -13,9 +13,6 @@ const useStyles = makeStyles((_: Theme) =>
     createStyles({
         grid: {
             justifyContent: 'center'
-        },
-        mediaContainer: {
-          overflowY: 'auto'
         }
     }),
 );
@@ -25,17 +22,15 @@ function MediaGrid() {
     const classes = useStyles();
 
     return (
-      <div className={classes.mediaContainer}>
-        <Grid container className={classes.grid}>
-            <MediaPost />
-            <MediaPost />
-            <MediaPost />
-            <MediaPost />
-            <MediaPost />
-            <MediaPost />
-        </Grid>
-      </div>
-      );
+      <Grid container className={classes.grid}>
+        <MediaPost />
+        <MediaPost />
+        <MediaPost />
+        <MediaPost />
+        <MediaPost />
+        <MediaPost />
+      </Grid>
+    );
 }
 
 export default MediaGrid;

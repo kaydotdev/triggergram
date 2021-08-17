@@ -12,10 +12,7 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         footer: {
             margin: theme.spacing(3),
-            position: 'fixed',
             width: 'calc(100% - 48px)',
-            left: 0,
-            bottom: 0,
             color: 'rgba(0, 0, 0, 0.87)',
             textAlign: 'center',
             backgroundColor: '#fafafa',
@@ -32,13 +29,13 @@ function Footer() {
     const classes = useStyles();
 
     return (
-        <footer className={classes.footer}>
-            <Typography
-            variant="overline"
-            display="block"
-            gutterBottom>
+      <footer className={classes.footer}>
+          <Typography
+          variant="overline"
+          display="block"
+          gutterBottom>
             TRIGGERGRAM
-            </Typography>
+          </Typography>
       </footer>
     );
 }

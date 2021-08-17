@@ -1,4 +1,7 @@
-import { CssBaseline } from '@material-ui/core';
+import {
+  CssBaseline,
+  Grid
+} from '@material-ui/core';
 import {
   createTheme,
   ThemeProvider,
@@ -29,6 +32,9 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         updates: {
             marginLeft: '24px'
+        },
+        mediaGrid: {
+            overflowY: 'auto'
         }
     }),
 );
@@ -40,11 +46,24 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline/>
-      <NavBar />
-      <SearchBar />
-      <Typography gutterBottom variant="h6" className={classes.updates}>Recent updates</Typography>
-      <MediaGrid />
-      <Footer />
+      <Grid
+        container
+        direction="column"
+        justifyContent="flex-start"
+        alignItems="stretch"
+      >
+        <NavBar />
+        <SearchBar />
+        <Typography
+          gutterBottom
+          variant="h6"
+          className={classes.updates}
+        >
+          Recent updates
+        </Typography>
+        <MediaGrid />
+        <Footer />
+      </Grid>
     </ThemeProvider>
   );
 }
