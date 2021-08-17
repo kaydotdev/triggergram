@@ -27,8 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
             position: 'absolute',
             objectFit: 'cover',
             width: '100%',
-            height: '100%',
-            borderRadius: '10px'
+            height: '100%'
         }
     }),
 );
