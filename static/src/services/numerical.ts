@@ -13,17 +13,16 @@
  */
 export function decimalMetric(num: number): string {
     if (num < 0)
-        throw new Error("Only positive number allowed.");
+        throw new RangeError("Only positive number allowed.");
     else if (num === 0)
         return "0";
     else {
         const decimals = Math.floor(Math.log10(num));
-        const base = Math.floor(decimals / (10 ** decimals));
 
-        if (decimals > 6)
-            return `${base}M`
-        else if (decimals > 3)
-            return `${base}k`
+        if (decimals >= 6)
+            return `${Math.floor(num / (10 ** 6))}M`
+        else if (decimals >= 3)
+            return `${Math.floor(num / (10 ** 3))}k`
         else
             return num.toString()
     }
