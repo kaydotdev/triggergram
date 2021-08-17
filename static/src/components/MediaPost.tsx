@@ -8,6 +8,8 @@ import {
     Theme
 } from '@material-ui/core/styles';
 import { Skeleton } from '@material-ui/lab';
+
+import { decimalMetric } from '../services/numerical';
 import TimeAgo from 'timeago-react';
 
 
@@ -37,7 +39,7 @@ interface MediaPostProps {
     src?: string,
     title?: string,
     account?: string,
-    views?: string,
+    views?: number,
     createdAt?: Date
 }
 
@@ -60,7 +62,7 @@ function MediaPost(props: MediaPostProps) {
                         {props.account}
                     </Typography>
                     <Typography variant="caption" color="textSecondary">
-                        {props.views + " • "}
+                        {decimalMetric(props.views || 0) + " views • "}
                         <TimeAgo datetime={props.createdAt?.toUTCString() || new Date().toUTCString()} locale='en_us' />
                     </Typography>
                     </Box>
