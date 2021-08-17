@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         margin: {
             margin: theme.spacing(3),
-            width: "calc(100% - 48px)"
+            width: 'calc(100% - 48px)'
         },
         icon: {
             marginRight: '10px'

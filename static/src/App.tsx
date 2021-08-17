@@ -13,6 +13,7 @@ import { indigo, blue } from '@material-ui/core/colors';
 import NavBar from './components/NavBar';
 import SearchBar from './components/SearchBar';
 import MediaGrid from './components/MediaGrid';
+import Footer from './components/Footer';
 
 
 const theme = createTheme({
@@ -24,7 +25,7 @@ const theme = createTheme({
 });
 
 
-const useStyles = makeStyles((_: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         updates: {
             marginLeft: '24px'
@@ -43,6 +44,7 @@ function App() {
       <SearchBar />
       <Typography gutterBottom variant="h6" className={classes.updates}>Recent updates</Typography>
       <MediaGrid />
+      <Footer />
     </ThemeProvider>
   );
 }
