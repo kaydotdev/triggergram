@@ -1,9 +1,13 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('renders application logo', () => {
+  // arrange
+  const altText = "TRIGGERGRAM";
+
+  // act
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+
+  // assert
+  expect(screen.getByAltText(altText)).toBeInTheDocument();
 });

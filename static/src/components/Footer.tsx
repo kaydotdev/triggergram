@@ -50,7 +50,7 @@ function Footer() {
             aria-label="github project" onClick={() => {
               window.location.href = 'https://github.com/antonAce/triggergram';
             }}>
-            <img src={GithubLogo} alt="TRIGGERGRAM" />
+            <img src={GithubLogo} alt="Triggergram project" />
           </IconButton>
       </footer>
     );
