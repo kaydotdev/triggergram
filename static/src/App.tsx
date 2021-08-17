@@ -7,13 +7,12 @@ import {
   Theme
 } from '@material-ui/core/styles';
 import {
-  Grid,
   Typography
 } from '@material-ui/core';
 import { indigo, blue } from '@material-ui/core/colors';
 import NavBar from './components/NavBar';
 import SearchBar from './components/SearchBar';
-import MediaPost from './components/MediaPost';
+import MediaGrid from './components/MediaGrid';
 
 
 const theme = createTheme({
@@ -27,10 +26,6 @@ const theme = createTheme({
 
 const useStyles = makeStyles((_: Theme) =>
     createStyles({
-        grid: {
-            justifyContent: 'center',
-            margin: '0 8px'
-        },
         updates: {
             marginLeft: '24px'
         }
@@ -47,14 +42,7 @@ function App() {
       <NavBar />
       <SearchBar />
       <Typography gutterBottom variant="h6" className={classes.updates}>Recent updates</Typography>
-      <Grid container className={classes.grid}>
-        <MediaPost />
-        <MediaPost />
-        <MediaPost />
-        <MediaPost />
-        <MediaPost />
-        <MediaPost />
-      </Grid>
+      <MediaGrid />
     </ThemeProvider>
   );
 }
