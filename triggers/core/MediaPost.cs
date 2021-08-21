@@ -10,19 +10,23 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
+using Triggergram.Core.Services.Contracts;
+
 namespace Triggergram.Core
 {
     public class MediaPost
     {
         private readonly BlobContainerClient _blobContainer;
-        private readonly string[] _allowedExtensions = new[] { "image/jpg", "image/png" };
+        private readonly IMediaConverter _mediaConverter;
+        private readonly string[] _allowedExtensions = { "image/jpeg", "image/png" };
         
-        public MediaPost()
+        public MediaPost(IMediaConverter mediaConverter)
         {
             var blobClient = new BlobServiceClient(
                 Environment.GetEnvironmentVariable("STORAGE_CONNECTION_STRING")
             );
             _blobContainer = blobClient.GetBlobContainerClient("mediastorage");
+            _mediaConverter = mediaConverter;
         }
         
         [FunctionName("MediaPost")]
@@ -57,10 +61,11 @@ namespace Triggergram.Core
 
             await using var fileStream = new MemoryStream();
             await mediaFile.CopyToAsync(fileStream, token);
-
-            fileStream.Position = 0;
-            await _blobContainer.UploadBlobAsync($"photo/{mediaFileName}{Path.GetExtension(mediaFile.FileName)}",
-                                                 fileStream, token);
+            await using (var convertedFileStream = await _mediaConverter.ConvertMediaFormatAsync(fileStream, token))
+            {
+                await _blobContainer.UploadBlobAsync($"{Guid.Empty}/{mediaFileName}.png",
+                    convertedFileStream, token);
+            }
 
             return new OkObjectResult(new { Message = mediaFileName });
         }
