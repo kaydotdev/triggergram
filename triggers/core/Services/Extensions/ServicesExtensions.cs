@@ -10,5 +10,15 @@ namespace Triggergram.Core.Services.Extensions
         {
             services.AddScoped<IMediaConverter, MediaConverter>();
         }
+
+        public static void AddMediaContainers(this IServiceCollection services, string connectionString)
+        {
+            services.AddScoped<IMediaContainer>(provider => new MediaContainer(connectionString));
+        }
+
+        public static void AddMediaServices(this IServiceCollection services)
+        {
+            services.AddScoped<IMediaPostService, MediaPostService>();
+        }
     }
 }
