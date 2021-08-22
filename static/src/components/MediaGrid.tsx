@@ -5,7 +5,8 @@ import {
   Theme
 } from '@material-ui/core/styles';
 import {
-  Grid
+  Grid,
+  CircularProgress
 } from '@material-ui/core';
 import MediaPost from './MediaPost';
 import { apiBaseUrl } from '../services/api';
@@ -16,6 +17,12 @@ const useStyles = makeStyles((_: Theme) =>
     createStyles({
         grid: {
             margin: '0 19px 0 19px'
+        },
+        progress: {
+            position: 'absolute',
+            width: '50px', height: '50px',
+            top: '50%', left: '50%',
+            margin: '-25px 0 0 -25px'
         }
     }),
 );
@@ -25,6 +32,7 @@ function MediaGrid() {
     const accountGuid = '00000000-0000-0000-0000-000000000000';
     const classes = useStyles();
 
+    const [postsLoaded, setPostsLoaded] = useState(false);
     const [posts, setPosts] = useState([] as JSX.Element[]);
 
     useEffect(() => {
@@ -47,15 +55,23 @@ function MediaGrid() {
         }
 
         setPosts(mediaPosts);
+        setPostsLoaded(true);
       }
 
       setPosts([]);
+      setPostsLoaded(false);
       fetchMediaPosts();
     }, []);
 
     return (
       <div className={classes.grid}>
-        <Grid container>{posts}</Grid>
+        {postsLoaded ? (
+          <Grid container>{posts}</Grid>
+        ) : (
+          <div className={classes.progress}>
+            <CircularProgress />
+          </div>
+        )}
       </div>
     );
 }
