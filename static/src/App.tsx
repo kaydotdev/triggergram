@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
             marginLeft: '24px'
         },
         mediaGrid: {
-            height: 'calc(100vh - 310px)',
+            height: 'calc(100vh - 300px)',
             paddingTop: '5px',
             overflowY: 'auto'
         }
