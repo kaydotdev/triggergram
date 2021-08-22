@@ -1,14 +1,25 @@
+import { useState } from 'react';
 import {
   makeStyles,
   createStyles,
   Theme
 } from '@material-ui/core/styles';
 import {
-  Typography,
-  IconButton
+  IconButton,
+  Tooltip,
+  TooltipProps,
+  Typography
 } from '@material-ui/core';
+import {
+  AddCircleOutline as AddCircleOutlineIcon,
+  Inbox as InboxIcon,
+  FavoriteOutlined as FavoriteOutlinedIcon,
+  PersonOutline as PersonOutlineIcon
+} from '@material-ui/icons';
 import GithubLogo from '../graphics/github-logo.svg';
 
+
+type NavigationStates = "recents" | "favorite" | "profile" | "upload";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -19,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         footer: {
             display: 'flex',
-            justifyContent: 'space-between',
+            justifyContent: 'center',
             margin: theme.spacing(3),
             width: 'calc(100% - 48px)',
             color: 'rgba(0, 0, 0, 0.87)',
@@ -29,6 +40,9 @@ const useStyles = makeStyles((theme: Theme) =>
             borderStyle: 'solid',
             borderRadius: '10px',
             borderWidth: '1px'
+        },
+        buttonLabel: {
+            margin: '0 0 0 4px'
         }
     }),
 );
@@ -37,22 +51,100 @@ const goToGithub = () => {
   window.location.href='https://github.com/antonAce/triggergram';
 };
 
+const useStylesTooltip = makeStyles((theme: Theme) => ({
+  arrow: {
+    color: theme.palette.common.black,
+  },
+  tooltip: {
+    backgroundColor: theme.palette.common.black,
+  },
+}));
+
+function BottomNavigationTooltip(props: TooltipProps) {
+  const classes = useStylesTooltip();
+
+  return <Tooltip arrow classes={classes} {...props} />;
+}
 
 function Footer() {
     const classes = useStyles();
+    const [route, setRoute] = useState<NavigationStates>("recents");
 
     return (
       <footer className={classes.footer}>
-          <Typography
-          className={classes.appName}
-          variant="overline"
-          display="block"
-          gutterBottom>
-            {(new Date()).getFullYear()} (NC) TRIGGERGRAM
-          </Typography>
-          <IconButton aria-label="github project" onClick={goToGithub}>
-            <img src={GithubLogo} alt="Triggergram project" />
-          </IconButton>
+          <BottomNavigationTooltip title="Recents" placement="top">
+            <IconButton aria-label="recents" onClick={() => setRoute("recents")}>
+              <InboxIcon />
+              {
+                route === "recents" ? (
+                  <Typography className={classes.buttonLabel}
+                              variant="button"
+                              display="block"
+                              gutterBottom>
+                    RECENTS
+                  </Typography>
+                ) : (
+                  <Typography />
+                )
+              }
+            </IconButton>
+          </BottomNavigationTooltip>
+          <BottomNavigationTooltip title="Favorite" placement="top">
+            <IconButton aria-label="favorite" onClick={() => setRoute("favorite")}>
+              <FavoriteOutlinedIcon />
+              {
+                route === "favorite" ? (
+                  <Typography className={classes.buttonLabel}
+                              variant="button"
+                              display="block"
+                              gutterBottom>
+                    FAVORITE
+                  </Typography>
+                ) : (
+                  <Typography />
+                )
+              }
+            </IconButton>
+          </BottomNavigationTooltip>
+          <BottomNavigationTooltip title="Profile" placement="top">
+            <IconButton aria-label="profile" onClick={() => setRoute("profile")}>
+              <PersonOutlineIcon />
+              {
+                route === "profile" ? (
+                  <Typography className={classes.buttonLabel}
+                              variant="button"
+                              display="block"
+                              gutterBottom>
+                    PROFILE
+                  </Typography>
+                ) : (
+                  <Typography />
+                )
+              }
+            </IconButton>
+          </BottomNavigationTooltip>
+          <BottomNavigationTooltip title="Upload" placement="top">
+            <IconButton aria-label="upload" onClick={() => setRoute("upload")}>
+              <AddCircleOutlineIcon />
+              {
+                route === "upload" ? (
+                  <Typography className={classes.buttonLabel}
+                              variant="button"
+                              display="block"
+                              gutterBottom>
+                    UPLOAD
+                  </Typography>
+                ) : (
+                  <Typography />
+                )
+              }
+            </IconButton>
+          </BottomNavigationTooltip>
+          <BottomNavigationTooltip title="Sources" placement="top">
+            <IconButton aria-label="sources" onClick={goToGithub}>
+              <img src={GithubLogo} alt="Triggergram project" width="22px" height="22px" />
+            </IconButton>
+          </BottomNavigationTooltip>
       </footer>
     );
 }
