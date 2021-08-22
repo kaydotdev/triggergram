@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +25,12 @@ namespace Triggergram.Core.Services.Implementation
             _context = context;
             _container = container;
             _converter = converter;
+        }
+
+        public async Task<IEnumerable<Guid>> GetMediaPostIdsByAccount(Guid accountId, CancellationToken token)
+        {
+            return await _context.MediaPosts.Where(m => m.AccountId == accountId)
+                .Select(m => m.Id).ToArrayAsync(token);
         }
         
         public async Task<Guid> CreateMediaPostAsync(MediaPostRecord mediaPostRecord, CancellationToken token)
