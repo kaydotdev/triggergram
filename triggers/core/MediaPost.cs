@@ -46,7 +46,7 @@ namespace Triggergram.Core
             {
                 var accountGuid = Guid.Parse(req.Query["accountGuid"]);
                 var mediaPostIds = await _mediaPostService.GetMediaPostIdsByAccount(accountGuid, token);
-                return new OkObjectResult(mediaPostIds);
+                return new OkObjectResult(new { mediaPostIds });
             }
             else
             {

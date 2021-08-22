@@ -1,6 +1,7 @@
 import {
     Box,
-    Typography
+    Typography,
+    Paper
 } from '@material-ui/core';
 import {
     createStyles,
@@ -15,11 +16,12 @@ import TimeAgo from 'timeago-react';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        container: {
-            width: 'calc(100vw / 3 - 56px)',
-            minWidth: '256px',
-            maxWidth: '1024px',
-            margin: theme.spacing(3)
+        mediaPost: {
+            padding: 5,
+            flexGrow: 3
+        },
+        mediaDescription: {
+            padding: 10
         },
         photoWrapper: {
             position: 'relative',
@@ -27,6 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
             marginBottom: '8px'
         },
         photo: {
+            borderRadius: 5,
             position: 'absolute',
             objectFit: 'cover',
             width: '100%',
@@ -47,34 +50,40 @@ function MediaPost(props: MediaPostProps) {
     const classes = useStyles();
 
     return (
-        <div>
-            {
-            props.src ? (
-                <div className={classes.container}>
-                    <div className={classes.photoWrapper}>
-                        <img className={classes.photo} alt={props.title} src={props.src} />
+        <div className={classes.mediaPost}>
+            <Paper>
+                {
+                props.src ? (
+                    <div>
+                        <div className={classes.photoWrapper}>
+                            <img className={classes.photo} alt={props.title} src={props.src} />
+                        </div>
+                        <div className={classes.mediaDescription}>
+                            <Box>
+                                <Typography gutterBottom variant="body2">
+                                    {props.title}
+                                </Typography>
+                                <Typography display="block" variant="caption" color="textSecondary">
+                                    {props.account}
+                                </Typography>
+                                <Typography variant="caption" color="textSecondary">
+                                    {decimalMetric(props.views || 0) + " views • "}
+                                    <TimeAgo datetime={props.createdAt?.toUTCString() || new Date().toUTCString()} locale='en_us' />
+                                </Typography>
+                            </Box>
+                        </div>
                     </div>
-                    <Box>
-                    <Typography gutterBottom variant="body2">
-                        {props.title}
-                    </Typography>
-                    <Typography display="block" variant="caption" color="textSecondary">
-                        {props.account}
-                    </Typography>
-                    <Typography variant="caption" color="textSecondary">
-                        {decimalMetric(props.views || 0) + " views • "}
-                        <TimeAgo datetime={props.createdAt?.toUTCString() || new Date().toUTCString()} locale='en_us' />
-                    </Typography>
-                    </Box>
-                </div>
-            ) : (
-                <div className={classes.container}>
-                    <Skeleton variant="rect" className={classes.photoWrapper} />
-                    <Skeleton />
-                    <Skeleton width="60%" />
-                </div>
-            )
-            }
+                ) : (
+                    <div>
+                        <Skeleton variant="rect" className={classes.photoWrapper} />
+                        <div className={classes.mediaDescription}>
+                            <Skeleton />
+                            <Skeleton width="60%" />
+                        </div>
+                    </div>
+                )
+                }
+            </Paper>
         </div>
     );
 }
