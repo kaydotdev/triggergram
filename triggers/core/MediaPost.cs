@@ -34,10 +34,22 @@ namespace Triggergram.Core
 
             return req.Method switch
             {
-                "GET" => new NotFoundResult(),
+                "GET" => await GetMediaPostAsync(req, token),
                 "POST" => await SaveMediaToStorage(req, token),
                 _ => new NotFoundResult()
             };
+        }
+
+        private async Task<IActionResult> GetMediaPostAsync(HttpRequest req, CancellationToken token)
+        {
+            await using var media = await _mediaPostService.GetMediaAsync(
+                Guid.Parse(req.Query["guid"]), token);
+            await using var inMemoryMedia = (MemoryStream)media;
+
+            if (Convert.ToBoolean(req.Query["onlyMedia"]))
+                return new FileContentResult(inMemoryMedia.ToArray(), "image/png");
+            else
+                return new NoContentResult();
         }
 
         private async Task<IActionResult> SaveMediaToStorage(HttpRequest req, CancellationToken token)
@@ -53,7 +65,7 @@ namespace Triggergram.Core
 
             await using var fileStream = new MemoryStream();
             await req.Form.Files["media"].CopyToAsync(fileStream, token);
-            var postId = await _mediaPostService.CreateMediaPost(new MediaPostRecord
+            var postId = await _mediaPostService.CreateMediaPostAsync(new MediaPostRecord
             {
                 Title = req.Form["title"],
                 Description = req.Form["description"],

@@ -1,6 +1,8 @@
 using System;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using MediaPostEntity = Triggergram.Core.Data.Models.MediaPost;
 using Triggergram.Core.Data.Context;
 using Triggergram.Core.Services.Contracts;
@@ -23,7 +25,7 @@ namespace Triggergram.Core.Services.Implementation
             _converter = converter;
         }
         
-        public async Task<Guid> CreateMediaPost(MediaPostRecord mediaPostRecord, CancellationToken token)
+        public async Task<Guid> CreateMediaPostAsync(MediaPostRecord mediaPostRecord, CancellationToken token)
         {
             var postId = Guid.NewGuid();
             var mediaFileName = $"{mediaPostRecord.AccountId}/{postId}.png";
@@ -44,6 +46,14 @@ namespace Triggergram.Core.Services.Implementation
             await _context.SaveChangesAsync(token);
 
             return postId;
+        }
+
+        public async Task<Stream> GetMediaAsync(Guid postId, CancellationToken token)
+        {
+            var media = await _context.MediaPosts
+                .FirstOrDefaultAsync(m => m.Id == postId, token);
+
+            return await _container.DownloadMediaAsync($"{media.AccountId}/{media.Id}.png", token);
         }
     }
 }

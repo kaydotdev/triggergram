@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -8,6 +9,7 @@ namespace Triggergram.Core.Services.Contracts
 {
     public interface IMediaPostService
     {
-        Task<Guid> CreateMediaPost(MediaPostRecord mediaPostRecord, CancellationToken token);
+        Task<Guid> CreateMediaPostAsync(MediaPostRecord mediaPostRecord, CancellationToken token);
+        Task<Stream> GetMediaAsync(Guid postId, CancellationToken token);
     }
 }

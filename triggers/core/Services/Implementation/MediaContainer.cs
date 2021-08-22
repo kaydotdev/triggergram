@@ -20,5 +20,15 @@ namespace Triggergram.Core.Services.Implementation
         {
             await _blobContainer.UploadBlobAsync(name, fileStream, token);
         }
+
+        public async Task<Stream> DownloadMediaAsync(string name, CancellationToken token)
+        {
+            var blob = _blobContainer.GetBlobClient(name);
+            var stream = new MemoryStream();
+
+            await blob.DownloadToAsync(stream, token);
+
+            return stream;
+        }
     }
 }
