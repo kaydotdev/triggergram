@@ -1,6 +1,7 @@
 # TRIGGERGRAM
 
 <a href="https://azure.microsoft.com/" title="Microsoft Azure"><img src="./docs/azure-icon.svg" alt="Microsoft Azure" width="25px" height="25px"></a>
+<a href="https://docs.microsoft.com/en-us/azure/azure-sql/" title="Azure SQL Server"><img src="./docs/sql.svg" alt="Azure SQL Server" width="25px" height="25px"></a>
 <a href="https://dotnet.microsoft.com/" title=".NET Core"><img src="./docs/dotnet.svg" alt=".NET Core" width="25px" height="25px"></a>
 <a href="https://www.python.org/" title="Python"><img src="./docs/python.svg" alt="Python" width="25px" height="25px"></a>
 <a href="https://www.typescriptlang.org/" title="Typescript"><img src="./docs/typescript-icon.svg" alt="Typescript" width="25px" height="25px"></a>
