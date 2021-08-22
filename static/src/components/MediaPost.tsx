@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
     Box,
     Typography,
@@ -9,12 +10,11 @@ import {
     Theme
 } from '@material-ui/core/styles';
 import { Skeleton } from '@material-ui/lab';
-
 import { decimalMetric } from '../services/numerical';
 import TimeAgo from 'timeago-react';
 
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles((_: Theme) =>
     createStyles({
         mediaPost: {
             padding: 5,
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
             marginBottom: '8px'
         },
         photo: {
-            borderRadius: 5,
+            borderRadius: '5px 5px 0 0',
             position: 'absolute',
             objectFit: 'cover',
             width: '100%',
@@ -37,6 +37,12 @@ const useStyles = makeStyles((theme: Theme) =>
         }
     }),
 );
+
+const hiddenImage = {
+    display: 'none',
+    width: '0%',
+    height: '0%'
+};
 
 interface MediaPostProps {
     src?: string,
@@ -47,6 +53,7 @@ interface MediaPostProps {
 }
 
 function MediaPost(props: MediaPostProps) {
+    const [imageLoaded, setImageLoaded] = useState(false);
     const classes = useStyles();
 
     return (
@@ -55,9 +62,16 @@ function MediaPost(props: MediaPostProps) {
                 {
                 props.src ? (
                     <div>
-                        <div className={classes.photoWrapper}>
-                            <img className={classes.photo} alt={props.title} src={props.src} />
+                        <div style={imageLoaded ? {} : hiddenImage}
+                             className={classes.photoWrapper}>
+                            <img onLoad={() => setImageLoaded(true)}
+                                className={classes.photo}
+                                alt={props.title}
+                                src={props.src} />
                         </div>
+                        <Skeleton style={imageLoaded ? hiddenImage : {}}
+                                  variant="rect"
+                                  className={classes.photoWrapper} />
                         <div className={classes.mediaDescription}>
                             <Box>
                                 <Typography gutterBottom variant="body2">
