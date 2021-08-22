@@ -17,6 +17,7 @@ import TimeAgo from 'timeago-react';
 const useStyles = makeStyles((_: Theme) =>
     createStyles({
         mediaPost: {
+            minWidth: '250px',
             padding: 5,
             flex: '1 0 21%'
         },
