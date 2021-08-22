@@ -18,7 +18,7 @@ const useStyles = makeStyles((_: Theme) =>
     createStyles({
         mediaPost: {
             padding: 5,
-            flexGrow: 3
+            flex: '1 0 21%'
         },
         mediaDescription: {
             padding: 10
