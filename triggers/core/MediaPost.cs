@@ -42,14 +42,20 @@ namespace Triggergram.Core
 
         private async Task<IActionResult> GetMediaPostAsync(HttpRequest req, CancellationToken token)
         {
-            await using var media = await _mediaPostService.GetMediaAsync(
-                Guid.Parse(req.Query["guid"]), token);
-            await using var inMemoryMedia = (MemoryStream)media;
-
             if (Convert.ToBoolean(req.Query["onlyMedia"]))
+            {
+                await using var media = await _mediaPostService.GetMediaAsync(
+                    Guid.Parse(req.Query["guid"]), token);
+                await using var inMemoryMedia = (MemoryStream)media;
                 return new FileContentResult(inMemoryMedia.ToArray(), "image/png");
+            }
             else
-                return new NoContentResult();
+            {
+                var mediaPost = await _mediaPostService.GetMediaPostContentAsync(
+                    Guid.Parse(req.Query["guid"]), token);
+
+                return new OkObjectResult(mediaPost);
+            }
         }
 
         private async Task<IActionResult> SaveMediaToStorage(HttpRequest req, CancellationToken token)

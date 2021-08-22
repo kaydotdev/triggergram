@@ -11,5 +11,6 @@ namespace Triggergram.Core.Services.Contracts
     {
         Task<Guid> CreateMediaPostAsync(MediaPostRecord mediaPostRecord, CancellationToken token);
         Task<Stream> GetMediaAsync(Guid postId, CancellationToken token);
+        Task<MediaPostView> GetMediaPostContentAsync(Guid postId, CancellationToken token);
     }
 }

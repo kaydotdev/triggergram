@@ -55,5 +55,20 @@ namespace Triggergram.Core.Services.Implementation
 
             return await _container.DownloadMediaAsync($"{media.AccountId}/{media.Id}.png", token);
         }
+
+        public async Task<MediaPostView> GetMediaPostContentAsync(Guid postId, CancellationToken token)
+        {
+            var mediaPost = await _context.MediaPosts.FirstOrDefaultAsync(m => m.Id == postId, token);
+
+            return new MediaPostView
+            {
+                Id = mediaPost.Id.ToString(),
+                Title = mediaPost.Title,
+                Description = mediaPost.Description,
+                CreatedAt = mediaPost.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss"),
+                Views = mediaPost.Views,
+                Account = mediaPost.AccountId.ToString()
+            };
+        }
     }
 }
