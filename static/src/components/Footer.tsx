@@ -33,6 +33,10 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
+const goToGithub = () => {
+  window.location.href='https://github.com/antonAce/triggergram';
+};
+
 
 function Footer() {
     const classes = useStyles();
@@ -46,10 +50,7 @@ function Footer() {
           gutterBottom>
             {(new Date()).getFullYear()} (NC) TRIGGERGRAM
           </Typography>
-          <IconButton
-            aria-label="github project" onClick={() => {
-              window.location.href = 'https://github.com/antonAce/triggergram';
-            }}>
+          <IconButton aria-label="github project" onClick={goToGithub}>
             <img src={GithubLogo} alt="Triggergram project" />
           </IconButton>
       </footer>
