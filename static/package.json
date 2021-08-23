@@ -1,6 +1,6 @@
 {
-  "name": "album-on-functions",
-  "version": "0.1.0",
+  "name": "triggergram",
+  "version": "0.2.0",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.12.3",
