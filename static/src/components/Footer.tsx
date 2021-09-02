@@ -43,6 +43,9 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         buttonLabel: {
             margin: '0 0 0 4px'
+        },
+        iconButton: {
+          borderRadius: '25px'
         }
     }),
 );
@@ -57,7 +60,7 @@ const useStylesTooltip = makeStyles((theme: Theme) => ({
   },
   tooltip: {
     backgroundColor: theme.palette.common.black,
-  },
+  }
 }));
 
 function BottomNavigationTooltip(props: TooltipProps) {
@@ -73,7 +76,7 @@ function Footer() {
     return (
       <footer className={classes.footer}>
           <BottomNavigationTooltip title="Recents" placement="top">
-            <IconButton aria-label="recents" onClick={() => setRoute("recents")}>
+            <IconButton className={classes.iconButton} aria-label="recents" onClick={() => setRoute("recents")}>
               <InboxIcon />
               {
                 route === "recents" ? (
@@ -90,7 +93,7 @@ function Footer() {
             </IconButton>
           </BottomNavigationTooltip>
           <BottomNavigationTooltip title="Favorite" placement="top">
-            <IconButton aria-label="favorite" onClick={() => setRoute("favorite")}>
+            <IconButton className={classes.iconButton} aria-label="favorite" onClick={() => setRoute("favorite")}>
               <FavoriteOutlinedIcon />
               {
                 route === "favorite" ? (
@@ -107,7 +110,7 @@ function Footer() {
             </IconButton>
           </BottomNavigationTooltip>
           <BottomNavigationTooltip title="Profile" placement="top">
-            <IconButton aria-label="profile" onClick={() => setRoute("profile")}>
+            <IconButton className={classes.iconButton} aria-label="profile" onClick={() => setRoute("profile")}>
               <PersonOutlineIcon />
               {
                 route === "profile" ? (
@@ -124,7 +127,7 @@ function Footer() {
             </IconButton>
           </BottomNavigationTooltip>
           <BottomNavigationTooltip title="Upload" placement="top">
-            <IconButton aria-label="upload" onClick={() => setRoute("upload")}>
+            <IconButton className={classes.iconButton} aria-label="upload" onClick={() => setRoute("upload")}>
               <AddCircleOutlineIcon />
               {
                 route === "upload" ? (
