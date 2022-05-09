@@ -1,6 +1,6 @@
 {
-  "short_name": "TRIGGERGRAM",
-  "name": "An Instagram-like social network for uploading and sharing photos",
+  "short_name": "Triggergram",
+  "name": "An Instagram-like social network for uploading and sharing photos, commenting and communicating, that is build in top of the serverless architecture.",
   "icons": [
     {
       "src": "favicon.ico",
