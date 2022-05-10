@@ -1,6 +1,12 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
-  theme: { extend: {} },
+  theme: {
+    extend: {
+      spacing: {
+        '128': '32rem',
+      }
+    }
+  },
   daisyui: {
     themes: [
       {
