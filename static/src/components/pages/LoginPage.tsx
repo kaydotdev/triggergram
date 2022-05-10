@@ -23,13 +23,13 @@ function LoginPage() {
                                     <span className="label-text ml-2">Remember me</span>
                                 </label>
                             </div>
-                            <a href="#!" className="link link-secondary">Forgot password?</a>
+                            <button className="link link-secondary">Forgot password?</button>
                         </div>
                         <div className="form-control w-full">
                             <button type="submit" className="btn btn-primary">Login</button>
                         </div>
                         <div className="card-actions justify-end pt-4">
-                            <p className="text-center">Don't have an account? <a href="#!" className="link link-secondary">Register</a></p>
+                            <p className="text-center">Don't have an account? <button className="link link-secondary">Register</button></p>
                         </div>
                     </div>
                 </div>
