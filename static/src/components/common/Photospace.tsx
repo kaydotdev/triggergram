@@ -21,6 +21,16 @@ function Photospace() {
             title: "Lorem ipsum",
             description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.Quos aspernatur quidem minus quasi animi debitis laborum dolorem dolore repellendus praesentium molestiae atque rerum laudantium quas perferendis, dolorum autem ipsum tenetur?",
             src: "https://api.lorem.space/image?hash=10004"
+        },
+        {
+            title: "Lorem ipsum",
+            description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.Quos aspernatur quidem minus quasi animi debitis laborum dolorem dolore repellendus praesentium molestiae atque rerum laudantium quas perferendis, dolorum autem ipsum tenetur?",
+            src: "https://api.lorem.space/image?hash=10005"
+        },
+        {
+            title: "Lorem ipsum",
+            description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.Quos aspernatur quidem minus quasi animi debitis laborum dolorem dolore repellendus praesentium molestiae atque rerum laudantium quas perferendis, dolorum autem ipsum tenetur?",
+            src: "https://api.lorem.space/image?hash=10006"
         }
     ];
 
