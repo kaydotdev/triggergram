@@ -37,7 +37,7 @@ function Photospace() {
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 w-full">
         {
-            photocards.map(card => (<Photocard title={card.title} description={card.description} src={card.src} />))
+            photocards.map((card, i) => (<Photocard key={i} title={card.title} description={card.description} src={card.src} />))
         }
         </div>
     );
