@@ -2,11 +2,9 @@
 
 <br>
 
-![GCP](./docs/devicons/gcp.svg)
-![Cloud functions](./docs/devicons/cloudfn.svg)
+![Azure](./docs/devicons/azure.svg)
 ![.Net Core](./docs/devicons/dotnetcore.svg)
 ![Python](./docs/devicons/python.svg)
-![Pytorch](./docs/devicons/pytorch.svg)
 ![React](./docs/devicons/react.svg)
 ![Redux](./docs/devicons/redux.svg)
 ![Tailwind](./docs/devicons/tailwind.svg)
